@@ -19,44 +19,31 @@
 //!
 //! The processor and cluster IDs, in multi-core or cluster systems.
 
-/// MPIDR_EL1
-#[derive(Clone, Copy, Debug)]
-#[allow(non_camel_case_types)]
-pub struct MPIDR_EL1 {
-    bits: u64,
+bitflags! {
+    /// MPIDR_EL1
+    #[allow(non_camel_case_types)]
+    pub struct MPIDR_EL1: u64 {
+        /// Core0
+        const CORE0 = 1;
+
+        /// Core1
+        const CORE1 = 1 << 1;
+
+        /// Core2
+        const CORE2 = 1 << 2;
+
+        /// Core3
+        const CORE3 = 1 << 3;
+    }
 }
 
 impl MPIDR_EL1 {
-    /// Returns the contents of the register as raw bits
-    pub fn bits(&self) -> u64 {
-        self.bits
-    }
+    sys_coproc_read_raw!(u64, "MPIDR_EL1");
+    read_flags!();
 
     /// Affinity level 0. Lowest level affinity field.
     #[inline]
     pub fn aff0(&self) -> u8 {
         (self.bits & 0xff) as u8
-    }
-
-    /// The core number
-    #[inline]
-    pub fn core_id(&self) -> u8 {
-        self.aff0() & 0x3
-    }
-}
-
-/// Reads the CPU register
-#[inline]
-pub fn read() -> MPIDR_EL1 {
-    match () {
-        #[cfg(target_arch = "aarch64")]
-        () => {
-            let r: u64;
-            unsafe { asm!("mrs $0, MPIDR_EL1" : "=r"(r) ::: "volatile") }
-            MPIDR_EL1 { bits: r }
-        }
-
-        #[cfg(not(target_arch = "aarch64"))]
-        () => unimplemented!(),
     }
 }

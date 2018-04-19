@@ -11,17 +11,16 @@
  * =============================================================================
  *
  * Author(s):
- *   - Jorge Aparicio
  *   - Andre Richter <andre.o.richter@gmail.com>
  */
 
-//! The stack pointer
+//! Counter-timer Physical Timer TimerValue register - EL0
 
-/// SP
+/// CNTP_TVAL_EL0
 #[allow(non_camel_case_types)]
-pub struct SP;
+pub struct CNTP_TVAL_EL0;
 
-impl SP {
-    read_raw!(u64, "sp");
-    write_raw!(u64, "sp");
+impl CNTP_TVAL_EL0 {
+    sys_coproc_read_raw!(u32, "CNTP_TVAL_EL0");
+    sys_coproc_write_raw!(u32, "CNTP_TVAL_EL0");
 }
