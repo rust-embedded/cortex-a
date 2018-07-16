@@ -11,7 +11,6 @@
  * =============================================================================
  *
  * Author(s):
- *   - Jorge Aparicio
  *   - Andre Richter <andre.o.richter@gmail.com>
  */
 
@@ -19,31 +18,12 @@
 //!
 //! The processor and cluster IDs, in multi-core or cluster systems.
 
-bitflags! {
-    /// MPIDR_EL1
-    #[allow(non_camel_case_types)]
-    pub struct MPIDR_EL1: u64 {
-        /// Core0
-        const CORE0 = 1;
+pub use register::cpu::RegisterReadOnly;
 
-        /// Core1
-        const CORE1 = 1 << 1;
+pub struct Reg;
 
-        /// Core2
-        const CORE2 = 1 << 2;
-
-        /// Core3
-        const CORE3 = 1 << 3;
-    }
-}
-
-impl MPIDR_EL1 {
+impl RegisterReadOnly<u64, ()> for Reg {
     sys_coproc_read_raw!(u64, "MPIDR_EL1");
-    read_flags!();
-
-    /// Affinity level 0. Lowest level affinity field.
-    #[inline]
-    pub fn aff0(&self) -> u8 {
-        (self.bits & 0xff) as u8
-    }
 }
+
+pub static MPIDR_EL1: Reg = Reg {};

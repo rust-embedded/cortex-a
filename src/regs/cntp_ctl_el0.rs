@@ -16,36 +16,36 @@
 
 //! Counter-timer Physical Timer Control register - EL0
 
-bitflags! {
-    /// CNTP_CTL_EL0
-    #[allow(non_camel_case_types)]
-    pub struct CNTP_CTL_EL0: u64 {
+pub use register::cpu::RegisterReadWrite;
+
+register_bitfields! {u32,
+    CNTP_CTL_EL0 [
         /// Enables the timer. Permitted values are:
         ///
         /// 0 Timer disabled.
         /// 1 Timer enabled.
-        const ENABLE = 1;
+        ENABLE        OFFSET(0)  NUMBITS(1) [],
 
         /// Timer interrupt mask bit. Permitted values are:
         ///
         /// 0 Timer interrupt is not masked by the IMASK bit.
         /// 1 Timer interrupt is masked by the IMASK bit.
-        const IMASK = 1 << 1;
+        IMASK         OFFSET(1)  NUMBITS(1) [],
 
         /// The status of the timer. This bit indicates whether the
         /// timer condition is met:
         ///
         /// 0 Timer condition is not met.
         /// 1 Timer condition is met.
-        const ISTATUS = 1 << 2;
-    }
+        ISTATUS       OFFSET(2)  NUMBITS(1) []
+    ]
 }
 
-impl CNTP_CTL_EL0 {
-    sys_coproc_read_raw!(u64, "CNTP_CTL_EL0");
-    sys_coproc_write_raw!(u64, "CNTP_CTL_EL0");
-    modify_raw!();
-    read_flags!();
-    write_flags!();
-    modify_flags!();
+pub struct Reg;
+
+impl RegisterReadWrite<u32, CNTP_CTL_EL0::Register> for Reg {
+    sys_coproc_read_raw!(u32, "CNTP_CTL_EL0");
+    sys_coproc_write_raw!(u32, "CNTP_CTL_EL0");
 }
+
+pub static CNTP_CTL_EL0: Reg = Reg {};

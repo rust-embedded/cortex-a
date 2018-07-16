@@ -14,13 +14,14 @@
  *   - Andre Richter <andre.o.richter@gmail.com>
  */
 
-//! Counter-timer Physical Timer CompareValue register - EL0
+//! Counter-timer Frequency register - EL0
 
-/// CNTP_CVAL_EL0
-#[allow(non_camel_case_types)]
-pub struct CNTP_CVAL_EL0;
+pub use register::cpu::RegisterReadOnly;
 
-impl CNTP_CVAL_EL0 {
-    sys_coproc_read_raw!(u64, "CNTP_CVAL_EL0");
-    sys_coproc_write_raw!(u64, "CNTP_CVAL_EL0");
+pub struct Reg;
+
+impl RegisterReadOnly<u32, ()> for Reg {
+    sys_coproc_read_raw!(u32, "CNTFRQ_EL0");
 }
+
+pub static CNTFRQ_EL0: Reg = Reg {};

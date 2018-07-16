@@ -7,13 +7,11 @@
 //! For now, there's not much. I will update it gradually.
 //! If you want to contribute, feel free to reach out!
 
-#![deny(missing_docs)]
-#![deny(warnings)]
 #![feature(asm)]
 #![no_std]
 
 #[macro_use]
-extern crate bitflags;
+extern crate register;
 
 pub mod asm;
-pub mod register;
+pub mod regs;
