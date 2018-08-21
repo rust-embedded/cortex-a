@@ -1,3 +1,6 @@
+[![crates.io](https://img.shields.io/crates/d/cortex-a.svg)](https://crates.io/crates/cortex-a)
+[![crates.io](https://img.shields.io/crates/v/cortex-a.svg)](https://crates.io/crates/cortex-a)
+
 # cortex-a
 
 Low level access to Cortex-A processors
