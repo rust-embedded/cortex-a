@@ -15,6 +15,8 @@
  */
 
 //! Counter-timer Physical Timer TimerValue register - EL0
+//!
+//! Holds the timer value for the EL1 physical timer.
 
 pub use register::cpu::RegisterReadWrite;
 

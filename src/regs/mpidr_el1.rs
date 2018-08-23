@@ -16,7 +16,8 @@
 
 //! Multiprocessor Affinity Register - EL1
 //!
-//! The processor and cluster IDs, in multi-core or cluster systems.
+//! In a multiprocessor system, provides an additional PE
+//! identification mechanism for scheduling purposes.
 
 pub use register::cpu::RegisterReadOnly;
 

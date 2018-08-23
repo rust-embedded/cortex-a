@@ -1,6 +1,6 @@
 [package]
 name = "cortex-a"
-version = "1.0.0"
+version = "1.1.0"
 authors = ["Andre Richter <andre.o.richter@gmail.com>"]
 description = "Low level access to Cortex-A processors"
 homepage = "https://github.com/andre-richter/cortex-a"
@@ -11,4 +11,4 @@ categories = ["embedded", "hardware-support", "no-std"]
 license = "MIT/Apache-2.0"
 
 [dependencies]
-register = "0.1.1"
+register = "0.2.0"

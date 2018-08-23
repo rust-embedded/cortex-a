@@ -15,6 +15,11 @@
  */
 
 //! Counter-timer Frequency register - EL0
+//!
+//! This register is provided so that software can discover the
+//! frequency of the system counter. It must be programmed with this
+//! value as part of system initialization. The value of the register
+//! is not interpreted by hardware.
 
 pub use register::cpu::RegisterReadOnly;
 

@@ -15,6 +15,8 @@
  */
 
 //! Counter-timer Physical Timer Control register - EL0
+//!
+//! Control register for the EL1 physical timer.
 
 pub use register::cpu::RegisterReadWrite;
 
@@ -24,20 +26,31 @@ register_bitfields! {u32,
         ///
         /// 0 Timer disabled.
         /// 1 Timer enabled.
-        ENABLE        OFFSET(0)  NUMBITS(1) [],
+        ENABLE  OFFSET(0) NUMBITS(1) [],
 
         /// Timer interrupt mask bit. Permitted values are:
         ///
         /// 0 Timer interrupt is not masked by the IMASK bit.
         /// 1 Timer interrupt is masked by the IMASK bit.
-        IMASK         OFFSET(1)  NUMBITS(1) [],
+        IMASK   OFFSET(1) NUMBITS(1) [],
 
         /// The status of the timer. This bit indicates whether the
         /// timer condition is met:
         ///
         /// 0 Timer condition is not met.
         /// 1 Timer condition is met.
-        ISTATUS       OFFSET(2)  NUMBITS(1) []
+        ///
+        /// When the value of the ENABLE bit is 1, ISTATUS indicates
+        /// whether the timer condition is met. ISTATUS takes no
+        /// account of the value of the IMASK bit. If the value of
+        /// ISTATUS is 1 and the value of IMASK is 0 then the timer
+        /// interrupt is asserted.
+        ///
+        /// When the value of the ENABLE bit is 0, the ISTATUS field
+        /// is UNKNOWN.
+        ///
+        /// This bit is read-only.
+        ISTATUS OFFSET(2) NUMBITS(1) []
     ]
 }
 
