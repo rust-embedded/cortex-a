@@ -18,7 +18,7 @@
 //!
 //! Holds the timer value for the EL1 physical timer.
 
-pub use register::cpu::RegisterReadWrite;
+use register::cpu::RegisterReadWrite;
 
 pub struct Reg;
 

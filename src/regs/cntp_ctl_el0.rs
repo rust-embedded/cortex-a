@@ -18,7 +18,7 @@
 //!
 //! Control register for the EL1 physical timer.
 
-pub use register::cpu::RegisterReadWrite;
+use register::cpu::RegisterReadWrite;
 
 register_bitfields! {u32,
     CNTP_CTL_EL0 [

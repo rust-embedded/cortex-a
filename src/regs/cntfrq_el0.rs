@@ -21,7 +21,7 @@
 //! value as part of system initialization. The value of the register
 //! is not interpreted by hardware.
 
-pub use register::cpu::RegisterReadOnly;
+use register::cpu::RegisterReadOnly;
 
 pub struct Reg;
 

@@ -9,6 +9,7 @@
 
 #![feature(asm)]
 #![no_std]
+#![feature(core_intrinsics)]
 
 #[macro_use]
 extern crate register;

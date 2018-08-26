@@ -40,3 +40,23 @@ pub fn wfe() {
         () => unimplemented!(),
     }
 }
+
+/// Exception return
+///
+/// Will jump to wherever the corresponding link register points to,
+/// and therefore never return.
+#[inline]
+pub fn eret() -> ! {
+    use core;
+
+    match () {
+        #[cfg(target_arch = "aarch64")]
+        () => unsafe {
+            asm!("eret" :::: "volatile");
+            core::intrinsics::unreachable()
+        },
+
+        #[cfg(not(target_arch = "aarch64"))]
+        () => unimplemented!(),
+    }
+}

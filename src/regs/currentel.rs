@@ -18,7 +18,7 @@
 //!
 //! Holds the current Exception level.
 
-pub use register::cpu::RegisterReadOnly;
+use register::cpu::RegisterReadOnly;
 
 register_bitfields! {u32,
     CurrentEL [

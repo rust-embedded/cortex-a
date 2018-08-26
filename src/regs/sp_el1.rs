@@ -14,17 +14,23 @@
  *   - Andre Richter <andre.o.richter@gmail.com>
  */
 
-//! Multiprocessor Affinity Register - EL1
+//! The stack pointer - EL1
 //!
-//! In a multiprocessor system, provides an additional PE
-//! identification mechanism for scheduling purposes.
+//! Holds the stack pointer associated with EL1. When executing at
+//! EL1, the value of SPSel.SP determines the current stack pointer:
+//!
+//! SPSel.SP | current stack pointer
+//! --------------------------------
+//! 0        | SP_EL0
+//! 1        | SP_EL1
 
-use register::cpu::RegisterReadOnly;
+use register::cpu::RegisterReadWrite;
 
 pub struct Reg;
 
-impl RegisterReadOnly<u64, ()> for Reg {
-    sys_coproc_read_raw!(u64, "MPIDR_EL1");
+impl RegisterReadWrite<u64, ()> for Reg {
+    sys_coproc_read_raw!(u64, "SP_EL1");
+    sys_coproc_write_raw!(u64, "SP_EL1");
 }
 
-pub static MPIDR_EL1: Reg = Reg {};
+pub static SP_EL1: Reg = Reg {};

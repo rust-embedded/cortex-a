@@ -5,6 +5,33 @@
 
 Low level access to Cortex-A processors
 
+## Usage
+
+Example from https://github.com/andre-richter/rust-raspi3-tutorial
+
+```rust
+extern crate cortex_a;
+
+#[no_mangle]
+pub unsafe extern "C" fn _boot_cores() -> ! {
+    use cortex_a::{asm, regs::*};
+
+    const CORE_MASK: u64 = 0x3;
+    const STACK_START: u64 = 0x80_000;
+
+    match MPIDR_EL1.get() & CORE_MASK {
+        0 => {
+            SP.set(STACK_START);
+            reset()
+        }
+        _ => loop {
+            // if not core0, infinitely wait for events
+            asm::wfe();
+        },
+    }
+}
+```
+
 ## Disclaimer
 
 Descriptive comments in the source files are taken from the [ARM Architecture Reference Manual ARMv8, for ARMv8-A architecture profile](https://static.docs.arm.com/ddi0487/ca/DDI0487C_a_armv8_arm.pdf?_ga=2.266626254.1122218691.1534883460-1326731866.1530967873).

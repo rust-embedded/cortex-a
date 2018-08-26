@@ -14,17 +14,17 @@
  *   - Andre Richter <andre.o.richter@gmail.com>
  */
 
-//! Multiprocessor Affinity Register - EL1
+//! Exception Link Register - EL2
 //!
-//! In a multiprocessor system, provides an additional PE
-//! identification mechanism for scheduling purposes.
+//! When taking an exception to EL2, holds the address to return to.
 
-use register::cpu::RegisterReadOnly;
+use register::cpu::RegisterReadWrite;
 
 pub struct Reg;
 
-impl RegisterReadOnly<u64, ()> for Reg {
-    sys_coproc_read_raw!(u64, "MPIDR_EL1");
+impl RegisterReadWrite<u64, ()> for Reg {
+    sys_coproc_read_raw!(u64, "ELR_EL2");
+    sys_coproc_write_raw!(u64, "ELR_EL2");
 }
 
-pub static MPIDR_EL1: Reg = Reg {};
+pub static ELR_EL2: Reg = Reg {};

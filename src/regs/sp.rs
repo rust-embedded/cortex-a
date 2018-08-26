@@ -16,7 +16,7 @@
 
 //! The stack pointer
 
-pub use register::cpu::RegisterReadWrite;
+use register::cpu::RegisterReadWrite;
 
 pub struct Reg;
 
