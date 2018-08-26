@@ -45,8 +45,8 @@ register_bitfields! {u64,
         /// all purposes other than a direct read of the value of this
         /// bit.
         RW   OFFSET(31) NUMBITS(1) [
-            ALL_LOWER_ELS_ARE_AARCH32 = 0,
-            EL1_IS_AARCH64 = 1
+            AllLowerELsAreAarch32 = 0,
+            EL1IsAarch64 = 1
         ],
 
         /// Set/Way Invalidation Override. Causes Non-secure EL1

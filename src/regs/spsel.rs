@@ -30,8 +30,8 @@ register_bitfields! {u32,
         /// When this register has an architecturally-defined reset
         /// value, this field resets to 1.
         SP OFFSET(0) NUMBITS(1) [
-            SP_EL0 = 0,
-            SP_ELx = 1
+            EL0 = 0,
+            ELx = 1
         ]
     ]
 }
