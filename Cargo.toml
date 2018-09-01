@@ -1,6 +1,6 @@
 [package]
 name = "cortex-a"
-version = "2.0.1"
+version = "2.1.0"
 authors = ["Andre Richter <andre.o.richter@gmail.com>"]
 description = "Low level access to Cortex-A processors"
 homepage = "https://github.com/andre-richter/cortex-a"
@@ -9,6 +9,9 @@ readme = "README.md"
 keywords = ["arm", "aarch64", "cortex-a", "register"]
 categories = ["embedded", "hardware-support", "no-std"]
 license = "MIT/Apache-2.0"
+exclude = [
+    "Makefile",
+]
 
 [dependencies]
 register = "0.2.0"

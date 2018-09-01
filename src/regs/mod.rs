@@ -4,9 +4,12 @@
 mod macros;
 
 mod cntfrq_el0;
+mod cnthctl_el2;
 mod cntp_ctl_el0;
 mod cntp_tval_el0;
+mod cntvoff_el2;
 mod currentel;
+mod daif;
 mod elr_el2;
 mod hcr_el2;
 mod mpidr_el1;
@@ -20,9 +23,12 @@ mod spsr_el2;
 pub use register::cpu::*;
 
 pub use self::cntfrq_el0::CNTFRQ_EL0;
+pub use self::cnthctl_el2::CNTHCTL_EL2;
 pub use self::cntp_ctl_el0::CNTP_CTL_EL0;
 pub use self::cntp_tval_el0::CNTP_TVAL_EL0;
+pub use self::cntvoff_el2::CNTVOFF_EL2;
 pub use self::currentel::CurrentEL;
+pub use self::daif::DAIF;
 pub use self::elr_el2::ELR_EL2;
 pub use self::hcr_el2::HCR_EL2;
 pub use self::mpidr_el1::MPIDR_EL1;
