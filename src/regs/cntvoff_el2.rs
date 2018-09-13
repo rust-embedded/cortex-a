@@ -16,9 +16,9 @@
 
 //! Counter-timer Virtual Offset register - EL2
 //!
-//! Holds the 64-bit virtual offset. This is the offset between the
-//! physical count value visible in CNTPCT_EL0 and the virtual count
-//! value visible in CNTVCT_EL0.
+//! Holds the 64-bit virtual offset. This is the offset between the physical
+//! count value visible in CNTPCT_EL0 and the virtual count value visible in
+//! CNTVCT_EL0.
 
 use register::cpu::RegisterReadWrite;
 

@@ -27,8 +27,8 @@ register_bitfields! {u32,
         /// 0 Use SP_EL0 at all Exception levels.
         /// 1 Use SP_ELx for Exception level ELx.
         ///
-        /// When this register has an architecturally-defined reset
-        /// value, this field resets to 1.
+        /// When this register has an architecturally-defined reset value, this
+        /// field resets to 1.
         SP OFFSET(0) NUMBITS(1) [
             EL0 = 0,
             ELx = 1

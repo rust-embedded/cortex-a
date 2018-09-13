@@ -29,12 +29,10 @@ register_bitfields! {u32,
         /// 10 EL2
         /// 11 EL3
         ///
-        /// When the HCR_EL2.NV bit is 1, Non-secure EL1 read accesses
-        /// to the CurrentEL register return the value of 0x2 in this
-        /// field.
+        /// When the HCR_EL2.NV bit is 1, Non-secure EL1 read accesses to the
+        /// CurrentEL register return the value of 0x2 in this field.
         ///
-        /// This field resets to a value that is architecturally
-        /// UNKNOWN.
+        /// This field resets to a value that is architecturally UNKNOWN.
         EL OFFSET(2) NUMBITS(2) [
             EL0 = 0,
             EL1 = 1,

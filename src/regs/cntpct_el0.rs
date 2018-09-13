@@ -14,23 +14,16 @@
  *   - Andre Richter <andre.o.richter@gmail.com>
  */
 
-//! The stack pointer - EL1
+//! Counter-timer Physical Count register - EL0
 //!
-//! Holds the stack pointer associated with EL1. When executing at EL1, the
-//! value of SPSel.SP determines the current stack pointer:
-//!
-//! SPSel.SP | current stack pointer
-//! --------------------------------
-//! 0        | SP_EL0
-//! 1        | SP_EL1
+//! Holds the 64-bit physical count value.
 
-use register::cpu::RegisterReadWrite;
+use register::cpu::RegisterReadOnly;
 
 pub struct Reg;
 
-impl RegisterReadWrite<u64, ()> for Reg {
-    sys_coproc_read_raw!(u64, "SP_EL1");
-    sys_coproc_write_raw!(u64, "SP_EL1");
+impl RegisterReadOnly<u64, ()> for Reg {
+    sys_coproc_read_raw!(u64, "CNTPCT_EL0");
 }
 
-pub static SP_EL1: Reg = Reg {};
+pub static CNTPCT_EL0: Reg = Reg {};

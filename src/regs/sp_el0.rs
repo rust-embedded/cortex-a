@@ -16,9 +16,8 @@
 
 //! The stack pointer - EL0
 //!
-//! Holds the stack pointer associated with EL0. At higher Exception
-//! levels, this is used as the current stack pointer when the value
-//! of SPSel.SP is 0.
+//! Holds the stack pointer associated with EL0. At higher Exception levels,
+//! this is used as the current stack pointer when the value of SPSel.SP is 0.
 
 use register::cpu::RegisterReadWrite;
 

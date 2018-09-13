@@ -24,22 +24,21 @@ register_bitfields! {u32,
     SPSR_EL2 [
         /// Process state D mask. The possible values of this bit are:
         ///
-        /// 0 Watchpoint, Breakpoint, and Software Step exceptions
-        ///   targeted at the current Exception level are not masked.
+        /// 0 Watchpoint, Breakpoint, and Software Step exceptions targeted at
+        ///   the current Exception level are not masked.
         ///
-        /// 1 Watchpoint, Breakpoint, and Software Step exceptions
-        ///   targeted at the current Exception level are masked.
+        /// 1 Watchpoint, Breakpoint, and Software Step exceptions targeted at
+        ///   the current Exception level are masked.
         ///
-        /// When the target Exception level of the debug exception is
-        /// higher than the current Exception level, the exception is
-        /// not masked by this bit.
+        /// When the target Exception level of the debug exception is higher
+        /// than the current Exception level, the exception is not masked by
+        /// this bit.
         D OFFSET(9) NUMBITS(1) [
             Unmasked = 0,
             Masked = 1
         ],
 
-        /// SError interrupt mask bit. The possible values of this bit
-        /// are:
+        /// SError interrupt mask bit. The possible values of this bit are:
         ///
         /// 0 Exception not masked.
         /// 1 Exception masked.
@@ -66,8 +65,8 @@ register_bitfields! {u32,
             Masked = 1
         ],
 
-        /// AArch64 state (Exception level and selected SP) that an
-        /// exception was taken from. The possible values are:
+        /// AArch64 state (Exception level and selected SP) that an exception
+        /// was taken from. The possible values are:
         ///
         /// M[3:0] | State
         /// --------------
@@ -77,14 +76,14 @@ register_bitfields! {u32,
         /// 0b1000 | EL2t
         /// 0b1001 | EL2h
         ///
-        /// Other values are reserved, and returning to an Exception
-        /// level that is using AArch64 with a reserved value in this
-        /// field is treated as an illegal exception return.
+        /// Other values are reserved, and returning to an Exception level that
+        /// is using AArch64 with a reserved value in this field is treated as
+        /// an illegal exception return.
         ///
         /// The bits in this field are interpreted as follows:
-        /// - M[3:2] holds the Exception Level.
-        /// - M[1] is unused and is RES 0 for all non-reserved values.
-        /// - M[0] is used to select the SP:
+        ///   - M[3:2] holds the Exception Level.
+        ///   - M[1] is unused and is RES 0 for all non-reserved values.
+        ///   - M[0] is used to select the SP:
         ///     - 0 means the SP is always SP0.
         ///     - 1 means the exception SP is determined by the EL.
         M OFFSET(0) NUMBITS(4) [

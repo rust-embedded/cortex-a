@@ -43,8 +43,8 @@ pub fn wfe() {
 
 /// Exception return
 ///
-/// Will jump to wherever the corresponding link register points to,
-/// and therefore never return.
+/// Will jump to wherever the corresponding link register points to, and
+/// therefore never return.
 #[inline]
 pub fn eret() -> ! {
     use core;
