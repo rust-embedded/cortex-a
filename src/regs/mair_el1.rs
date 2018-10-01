@@ -52,31 +52,44 @@ register_bitfields! {u64,
         Attr3_LOW_MEMORY OFFSET(24) NUMBITS(4) [],
 
         /// Attribute 2
-        Attr2_HIGH OFFSET(20) NUMBITS(4) [],
-        Attr2_LOW_DEVICE OFFSET(16) NUMBITS(4) [],
-        Attr2_LOW_MEMORY OFFSET(16) NUMBITS(4) [],
+        Attr2_HIGH OFFSET(20) NUMBITS(4) [
+            Device = 0b0000,
+            Memory_OuterNonCacheable = 0b0100,
+            Memory_OuterWriteBack_NonTransient_ReadAlloc_WriteAlloc = 0b1111
+        ],
+        Attr2_LOW_DEVICE OFFSET(16) NUMBITS(4) [
+            Device_nGnRE = 0b0100
+        ],
+        Attr2_LOW_MEMORY OFFSET(16) NUMBITS(4) [
+            InnerNonCacheable = 0b0100,
+            InnerWriteBack_NonTransient_ReadAlloc_WriteAlloc = 0b1111
+        ],
 
         /// Attribute 1
         Attr1_HIGH OFFSET(12) NUMBITS(4) [
             Device = 0b0000,
+            Memory_OuterNonCacheable = 0b0100,
             Memory_OuterWriteBack_NonTransient_ReadAlloc_WriteAlloc = 0b1111
         ],
         Attr1_LOW_DEVICE OFFSET(8) NUMBITS(4) [
             Device_nGnRE = 0b0100
         ],
         Attr1_LOW_MEMORY OFFSET(8) NUMBITS(4) [
+            InnerNonCacheable = 0b0100,
             InnerWriteBack_NonTransient_ReadAlloc_WriteAlloc = 0b1111
         ],
 
         /// Attribute 0
         Attr0_HIGH OFFSET(4) NUMBITS(4) [
             Device = 0b0000,
+            Memory_OuterNonCacheable = 0b0100,
             Memory_OuterWriteBack_NonTransient_ReadAlloc_WriteAlloc = 0b1111
         ],
         Attr0_LOW_DEVICE OFFSET(0) NUMBITS(4) [
             Device_nGnRE = 0b0100
         ],
         Attr0_LOW_MEMORY OFFSET(0) NUMBITS(4) [
+            InnerNonCacheable = 0b0100,
             InnerWriteBack_NonTransient_ReadAlloc_WriteAlloc = 0b1111
         ]
     ]
