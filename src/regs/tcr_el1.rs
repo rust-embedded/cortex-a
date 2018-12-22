@@ -18,7 +18,7 @@
 //!
 //! The control register for stage 1 of the EL1&0 translation regime.
 
-use register::cpu::RegisterReadWrite;
+use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u64,
     TCR_EL1 [

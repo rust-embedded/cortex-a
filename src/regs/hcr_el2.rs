@@ -19,7 +19,7 @@
 //! Provides configuration controls for virtualization, including defining
 //! whether various Non-secure operations are trapped to EL2.
 
-use register::cpu::RegisterReadWrite;
+use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u64,
     HCR_EL2 [

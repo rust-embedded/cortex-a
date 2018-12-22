@@ -20,7 +20,7 @@
 //! stage 1 of the translation of an address from the lower VA range in the
 //! EL1&0 translation regime, and other information for this translation regime.
 
-use register::cpu::RegisterReadWrite;
+use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u64,
     TTBR0_EL1 [

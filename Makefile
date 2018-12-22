@@ -6,5 +6,12 @@ default:
 clippy:
 	cargo xclippy --target $(TARGET)
 
+fmt:
+	cargo fmt
+
+ready: clippy fmt
+	git pull
+	cargo package --allow-dirty
+
 clean:
 	cargo clean

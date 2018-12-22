@@ -20,7 +20,7 @@
 //! AttrIndx values in a Long-descriptor format translation table entry for
 //! stage 1 translations at EL1.
 
-use register::cpu::RegisterReadWrite;
+use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u64,
     MAIR_EL1 [

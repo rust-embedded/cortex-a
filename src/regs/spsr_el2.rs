@@ -18,7 +18,7 @@
 //!
 //! Holds the saved process state when an exception is taken to EL2.
 
-use register::cpu::RegisterReadWrite;
+use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u32,
     SPSR_EL2 [

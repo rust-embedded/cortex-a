@@ -19,7 +19,7 @@
 //! Provides top level control of the system, including its memory system, at
 //! EL1 and EL0.
 
-use register::cpu::RegisterReadWrite;
+use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u32,
     SCTLR_EL1 [

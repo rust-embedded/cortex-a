@@ -18,7 +18,7 @@
 //!
 //! Allows the Stack Pointer to be selected between SP_EL0 and SP_ELx.
 
-use register::cpu::RegisterReadWrite;
+use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u32,
     SPSel [
@@ -35,7 +35,6 @@ register_bitfields! {u32,
         ]
     ]
 }
-
 
 pub struct Reg;
 

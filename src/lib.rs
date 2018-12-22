@@ -11,9 +11,6 @@
 #![no_std]
 #![feature(core_intrinsics)]
 
-#[macro_use]
-extern crate register;
-
 pub mod asm;
 pub mod barrier;
 pub mod regs;

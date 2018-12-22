@@ -19,7 +19,7 @@
 //! Provides information about the implemented memory model and memory
 //! management support in AArch64 state.
 
-use register::cpu::RegisterReadOnly;
+use register::{cpu::RegisterReadOnly, register_bitfields};
 
 register_bitfields! {u64,
     ID_AA64MMFR0_EL1 [

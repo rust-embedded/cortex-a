@@ -20,7 +20,7 @@
 //! access from Non-secure EL1 to the physical counter and the Non-secure EL1
 //! physical timer.
 
-use register::cpu::RegisterReadWrite;
+use register::{cpu::RegisterReadWrite, register_bitfields};
 
 // When HCR_EL2.E2H == 0:
 // TODO: Figure out how we can differentiate depending on HCR_EL2.E2H state

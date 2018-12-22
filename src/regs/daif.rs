@@ -18,7 +18,7 @@
 //!
 //! Allows access to the interrupt mask bits.
 
-use register::cpu::RegisterReadWrite;
+use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u32,
     DAIF [
@@ -78,7 +78,6 @@ register_bitfields! {u32,
         ]
     ]
 }
-
 
 pub struct Reg;
 

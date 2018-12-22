@@ -7,11 +7,9 @@ Low level access to Cortex-A processors
 
 ## Usage
 
-Example from https://github.com/andre-richter/rust-raspi3-tutorial
+Example from https://github.com/rust-embedded/rust-raspi3-tutorial
 
 ```rust
-extern crate cortex_a;
-
 #[no_mangle]
 pub unsafe extern "C" fn _boot_cores() -> ! {
     use cortex_a::{asm, regs::*};
