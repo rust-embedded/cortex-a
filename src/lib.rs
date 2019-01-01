@@ -7,8 +7,8 @@
 //! For now, there's not much. I will update it gradually.
 //! If you want to contribute, feel free to reach out!
 
-#![feature(asm)]
 #![no_std]
+#![feature(asm)]
 #![feature(core_intrinsics)]
 
 pub mod asm;
