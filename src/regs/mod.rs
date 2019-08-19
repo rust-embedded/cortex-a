@@ -27,6 +27,7 @@ mod spsel;
 mod spsr_el2;
 mod tcr_el1;
 mod ttbr0_el1;
+mod ttbr1_el1;
 mod vbar_el1;
 
 // Export only the R/W traits and the static reg definitions
@@ -56,4 +57,5 @@ pub use self::spsel::SPSel;
 pub use self::spsr_el2::SPSR_EL2;
 pub use self::tcr_el1::TCR_EL1;
 pub use self::ttbr0_el1::TTBR0_EL1;
+pub use self::ttbr1_el1::TTBR1_EL1;
 pub use self::vbar_el1::VBAR_EL1;
