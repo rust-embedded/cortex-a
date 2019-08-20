@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 by the author(s)
+ * Copyright (c) 2018-2019 by the author(s)
  *
  * =============================================================================
  *
@@ -177,7 +177,6 @@ register_bitfields! {u64,
         /// of translation table and the memory translation granule size, as
         /// described in the AArch64 Virtual Memory System Architecture chapter.
         T1SZ  OFFSET(16) NUMBITS(6) [],
-
 
         /// Granule size for the TTBR0_EL1.
         ///
