@@ -60,3 +60,23 @@ pub fn eret() -> ! {
         () => unimplemented!(),
     }
 }
+
+/// Function return
+///
+/// Will jump to wherever the corresponding link register points to, and
+/// therefore never return.
+#[inline]
+pub fn ret() -> ! {
+    use core;
+
+    match () {
+        #[cfg(target_arch = "aarch64")]
+        () => unsafe {
+            asm!("ret" :::: "volatile");
+            core::intrinsics::unreachable()
+        },
+
+        #[cfg(not(target_arch = "aarch64"))]
+        () => unimplemented!(),
+    }
+}
