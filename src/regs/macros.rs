@@ -1,18 +1,9 @@
-/*
- * Copyright (c) 2018 by the author(s)
- *
- * =============================================================================
- *
- * Licensed under either of
- *   - Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- *   - MIT License (http://opensource.org/licenses/MIT)
- * at your option.
- *
- * =============================================================================
- *
- * Author(s):
- *   - Andre Richter <andre.o.richter@gmail.com>
- */
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+//
+// Copyright (c) 2018-2019 by the author(s)
+//
+// Author(s):
+//   - Andre Richter <andre.o.richter@gmail.com>
 
 macro_rules! __read_raw {
     ($width:ty, $asm_instr:tt, $asm_reg_name:tt) => {
@@ -57,27 +48,27 @@ macro_rules! __write_raw {
     };
 }
 
-/// Raw read from system coprocessor registers
+/// Raw read from system coprocessor registers.
 macro_rules! sys_coproc_read_raw {
     ($width:ty, $asm_reg_name:tt) => {
         __read_raw!($width, "mrs", $asm_reg_name);
     };
 }
 
-/// Raw write to system coprocessor registers
+/// Raw write to system coprocessor registers.
 macro_rules! sys_coproc_write_raw {
     ($width:ty, $asm_reg_name:tt) => {
         __write_raw!($width, "msr", $asm_reg_name);
     };
 }
 
-/// Raw read from (ordinary) registers
+/// Raw read from (ordinary) registers.
 macro_rules! read_raw {
     ($width:ty, $asm_reg_name:tt) => {
         __read_raw!($width, "mov", $asm_reg_name);
     };
 }
-/// Raw write to (ordinary) registers
+/// Raw write to (ordinary) registers.
 macro_rules! write_raw {
     ($width:ty, $asm_reg_name:tt) => {
         __write_raw!($width, "mov", $asm_reg_name);

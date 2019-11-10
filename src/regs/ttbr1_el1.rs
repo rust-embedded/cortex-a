@@ -1,34 +1,25 @@
-/*
- * Copyright (c) 2019 by the author(s)
- *
- * =============================================================================
- *
- * Licensed under either of
- *   - Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- *   - MIT License (http://opensource.org/licenses/MIT)
- * at your option.
- *
- * =============================================================================
- *
- * Author(s):
- *   - Andre Richter <andre.o.richter@gmail.com>
- */
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+//
+// Copyright (c) 2018-2019 by the author(s)
+//
+// Author(s):
+//   - Andre Richter <andre.o.richter@gmail.com>
 
 //! Translation Table Base Register 1 - EL1
 //!
-//! Holds the base address of the translation table for the initial lookup for
-//! stage 1 of the translation of an address from the higher VA range in the
-//! EL1&0 translation regime, and other information for this translation regime.
+//! Holds the base address of the translation table for the initial lookup for stage 1 of the
+//! translation of an address from the higher VA range in the EL1&0 translation regime, and other
+//! information for this translation regime.
 
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u64,
     TTBR1_EL1 [
-        /// An ASID for the translation table base address. The TCR_EL1.A1 field
-        /// selects either TTBR0_EL1.ASID or TTBR1_EL1.ASID.
+        /// An ASID for the translation table base address. The TCR_EL1.A1 field selects either
+        /// TTBR0_EL1.ASID or TTBR1_EL1.ASID.
         ///
-        /// If the implementation has only 8 bits of ASID, then the upper 8 bits
-        /// of this field are RES 0.
+        /// If the implementation has only 8 bits of ASID, then the upper 8 bits of this field are
+        /// RES 0.
         ASID  OFFSET(48) NUMBITS(16) [],
 
         /// Translation table base address

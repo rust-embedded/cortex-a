@@ -1,18 +1,9 @@
-/*
- * Copyright (c) 2018 by the author(s)
- *
- * =============================================================================
- *
- * Licensed under either of
- *   - Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- *   - MIT License (http://opensource.org/licenses/MIT)
- * at your option.
- *
- * =============================================================================
- *
- * Author(s):
- *   - Andre Richter <andre.o.richter@gmail.com>
- */
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+//
+// Copyright (c) 2018-2019 by the author(s)
+//
+// Author(s):
+//   - Andre Richter <andre.o.richter@gmail.com>
 
 //! Saved Program Status Register - EL2
 //!
@@ -24,15 +15,14 @@ register_bitfields! {u32,
     SPSR_EL2 [
         /// Process state D mask. The possible values of this bit are:
         ///
-        /// 0 Watchpoint, Breakpoint, and Software Step exceptions targeted at
-        ///   the current Exception level are not masked.
+        /// 0 Watchpoint, Breakpoint, and Software Step exceptions targeted at the current Exception
+        ///   level are not masked.
         ///
-        /// 1 Watchpoint, Breakpoint, and Software Step exceptions targeted at
-        ///   the current Exception level are masked.
+        /// 1 Watchpoint, Breakpoint, and Software Step exceptions targeted at the current Exception
+        ///   level are masked.
         ///
-        /// When the target Exception level of the debug exception is higher
-        /// than the current Exception level, the exception is not masked by
-        /// this bit.
+        /// When the target Exception level of the debug exception is higher than the current
+        /// Exception level, the exception is not masked by this bit.
         D OFFSET(9) NUMBITS(1) [
             Unmasked = 0,
             Masked = 1
@@ -65,8 +55,8 @@ register_bitfields! {u32,
             Masked = 1
         ],
 
-        /// AArch64 state (Exception level and selected SP) that an exception
-        /// was taken from. The possible values are:
+        /// AArch64 state (Exception level and selected SP) that an exception was taken from. The
+        /// possible values are:
         ///
         /// M[3:0] | State
         /// --------------
@@ -76,9 +66,8 @@ register_bitfields! {u32,
         /// 0b1000 | EL2t
         /// 0b1001 | EL2h
         ///
-        /// Other values are reserved, and returning to an Exception level that
-        /// is using AArch64 with a reserved value in this field is treated as
-        /// an illegal exception return.
+        /// Other values are reserved, and returning to an Exception level that is using AArch64
+        /// with a reserved value in this field is treated as an illegal exception return.
         ///
         /// The bits in this field are interpreted as follows:
         ///   - M[3:2] holds the Exception Level.

@@ -1,0 +1,7 @@
+{
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+        100
+    ],
+    "rust.target": "aarch64-unknown-none-softfloat",
+}

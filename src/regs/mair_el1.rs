@@ -1,31 +1,19 @@
-/*
- * Copyright (c) 2018 by the author(s)
- *
- * =============================================================================
- *
- * Licensed under either of
- *   - Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- *   - MIT License (http://opensource.org/licenses/MIT)
- * at your option.
- *
- * =============================================================================
- *
- * Author(s):
- *   - Andre Richter <andre.o.richter@gmail.com>
- */
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+//
+// Copyright (c) 2018-2019 by the author(s)
+//
+// Author(s):
+//   - Andre Richter <andre.o.richter@gmail.com>
 
 //! Memory Attribute Indirection Register - EL1
 //!
-//! Provides the memory attribute encodings corresponding to the possible
-//! AttrIndx values in a Long-descriptor format translation table entry for
-//! stage 1 translations at EL1.
+//! Provides the memory attribute encodings corresponding to the possible AttrIndx values in a
+//! Long-descriptor format translation table entry for stage 1 translations at EL1.
 
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u64,
     MAIR_EL1 [
-        // TODO: Macrofy this
-
         /// Attribute 7
         Attr7_HIGH OFFSET(60) NUMBITS(4) [],
         Attr7_LOW_DEVICE OFFSET(56) NUMBITS(4) [],

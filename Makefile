@@ -1,4 +1,4 @@
-TARGET := aarch64-unknown-none
+TARGET := aarch64-unknown-none-softfloat
 
 default:
 	cargo xbuild --target $(TARGET)

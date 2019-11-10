@@ -1,18 +1,9 @@
-/*
- * Copyright (c) 2018 by the author(s)
- *
- * =============================================================================
- *
- * Licensed under either of
- *   - Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- *   - MIT License (http://opensource.org/licenses/MIT)
- * at your option.
- *
- * =============================================================================
- *
- * Author(s):
- *   - Andre Richter <andre.o.richter@gmail.com>
- */
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+//
+// Copyright (c) 2018-2019 by the author(s)
+//
+// Author(s):
+//   - Andre Richter <andre.o.richter@gmail.com>
 
 //! Counter-timer Physical Timer Control register - EL0
 //!
@@ -22,16 +13,14 @@ use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u32,
     CNTP_CTL_EL0 [
-        /// The status of the timer. This bit indicates whether the timer
-        /// condition is met:
+        /// The status of the timer. This bit indicates whether the timer condition is met:
         ///
         /// 0 Timer condition is not met.
         /// 1 Timer condition is met.
         ///
-        /// When the value of the ENABLE bit is 1, ISTATUS indicates whether the
-        /// timer condition is met. ISTATUS takes no account of the value of the
-        /// IMASK bit. If the value of ISTATUS is 1 and the value of IMASK is 0
-        /// then the timer interrupt is asserted.
+        /// When the value of the ENABLE bit is 1, ISTATUS indicates whether the timer condition is
+        /// met. ISTATUS takes no account of the value of the IMASK bit. If the value of ISTATUS is
+        /// 1 and the value of IMASK is 0 then the timer interrupt is asserted.
         ///
         /// When the value of the ENABLE bit is 0, the ISTATUS field is UNKNOWN.
         ///

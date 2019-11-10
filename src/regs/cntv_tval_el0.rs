@@ -1,19 +1,10 @@
-/*
- * Copyright (c) 2018-2019 by the author(s)
- *
- * =============================================================================
- *
- * Licensed under either of
- *   - Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- *   - MIT License (http://opensource.org/licenses/MIT)
- * at your option.
- *
- * =============================================================================
- *
- * Author(s):
- *   - Andre Richter <andre.o.richter@gmail.com>
- *   - Gregor Reitzenstein <me@dequbed.space>
- */
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+//
+// Copyright (c) 2018-2019 by the author(s)
+//
+// Author(s):
+//   - Andre Richter <andre.o.richter@gmail.com>
+//   - Gregor Reitzenstein <me@dequbed.space>
 
 //! Counter-timer Virtual Timer TimerValue register - EL0
 //!

@@ -1,22 +1,12 @@
-/*
- * Copyright (c) 2018 by the author(s)
- *
- * =============================================================================
- *
- * Licensed under either of
- *   - Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- *   - MIT License (http://opensource.org/licenses/MIT)
- * at your option.
- *
- * =============================================================================
- *
- * Author(s):
- *   - Andre Richter <andre.o.richter@gmail.com>
- */
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+//
+// Copyright (c) 2018-2019 by the author(s)
+//
+// Author(s):
+//   - Andre Richter <andre.o.richter@gmail.com>
 
-// Borrow implementations from the pending upstream ACLE implementation until it
-// is merged. Afterwards, we'll probably just reexport them, hoping that the API
-// doesn't change.
+// Borrow implementations from the pending upstream ACLE implementation until it is merged.
+// Afterwards, we'll probably just reexport them, hoping that the API doesn't change.
 //
 // https://github.com/rust-lang-nursery/stdsimd/pull/557
 

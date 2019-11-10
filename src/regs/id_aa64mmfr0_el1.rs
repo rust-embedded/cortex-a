@@ -1,18 +1,9 @@
-/*
- * Copyright (c) 2018 by the author(s)
- *
- * =============================================================================
- *
- * Licensed under either of
- *   - Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- *   - MIT License (http://opensource.org/licenses/MIT)
- * at your option.
- *
- * =============================================================================
- *
- * Author(s):
- *   - Andre Richter <andre.o.richter@gmail.com>
- */
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+//
+// Copyright (c) 2018-2019 by the author(s)
+//
+// Author(s):
+//   - Andre Richter <andre.o.richter@gmail.com>
 
 //! AArch64 Memory Model Feature Register 0 - EL1
 //!
@@ -23,8 +14,7 @@ use register::{cpu::RegisterReadOnly, register_bitfields};
 
 register_bitfields! {u64,
     ID_AA64MMFR0_EL1 [
-        /// Support for 4KiB memory translation granule size. Defined values
-        /// are:
+        /// Support for 4KiB memory translation granule size. Defined values are:
         ///
         /// 0000 4KiB granule supported.
         /// 1111 4KiB granule not supported.
@@ -35,8 +25,7 @@ register_bitfields! {u64,
             NotSupported = 0b1111
         ],
 
-        /// Support for 64KiB memory translation granule size. Defined values
-        /// are:
+        /// Support for 64KiB memory translation granule size. Defined values are:
         ///
         /// 0000 64KiB granule supported.
         /// 1111 64KiB granule not supported.
@@ -45,6 +34,17 @@ register_bitfields! {u64,
         TGran64 OFFSET(24) NUMBITS(4) [
             Supported = 0b0000,
             NotSupported = 0b1111
+        ],
+
+        /// Support for 16KiB memory translation granule size. Defined values are:
+        ///
+        /// 0001 16KiB granule supported.
+        /// 0000 16KiB granule not supported.
+        ///
+        /// All other values are reserved.
+        TGran16 OFFSET(20) NUMBITS(4) [
+            Supported = 0b0001,
+            NotSupported = 0b0000
         ],
 
         /// Physical Address range supported. Defined values are:
@@ -59,8 +59,8 @@ register_bitfields! {u64,
         ///
         /// All other values are reserved.
         ///
-        /// The value 0110 is permitted only if the implementation includes
-        /// ARMv8.2-LPA, otherwise it is reserved.
+        /// The value 0110 is permitted only if the implementation includes ARMv8.2-LPA, otherwise
+        /// it is reserved.
         PARange OFFSET(0) NUMBITS(4) [
             Bits_32 = 0b0000,
             Bits_36 = 0b0001,

@@ -1,24 +1,17 @@
-/*
- * Copyright (c) 2018-2019 by the author(s)
- *
- * =============================================================================
- *
- * Licensed under either of
- *   - Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- *   - MIT License (http://opensource.org/licenses/MIT)
- * at your option.
- *
- * =============================================================================
- *
- * Author(s):
- *   - Jorge Aparicio
- *   - Andre Richter <andre.o.richter@gmail.com>
- */
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+//
+// Copyright (c) 2018-2019 by the author(s)
+//
+// Author(s):
+//   - Jorge Aparicio
+//   - Andre Richter <andre.o.richter@gmail.com>
 
 //! Miscellaneous assembly instructions
 
+use core;
+
 /// The classic no-op
-#[inline]
+#[inline(always)]
 pub fn nop() {
     match () {
         #[cfg(target_arch = "aarch64")]
@@ -30,7 +23,7 @@ pub fn nop() {
 }
 
 /// Wait For Event
-#[inline]
+#[inline(always)]
 pub fn wfe() {
     match () {
         #[cfg(target_arch = "aarch64")]
@@ -43,12 +36,9 @@ pub fn wfe() {
 
 /// Exception return
 ///
-/// Will jump to wherever the corresponding link register points to, and
-/// therefore never return.
-#[inline]
+/// Will jump to wherever the corresponding link register points to, and therefore never return.
+#[inline(always)]
 pub fn eret() -> ! {
-    use core;
-
     match () {
         #[cfg(target_arch = "aarch64")]
         () => unsafe {
@@ -63,12 +53,9 @@ pub fn eret() -> ! {
 
 /// Function return
 ///
-/// Will jump to wherever the corresponding link register points to, and
-/// therefore never return.
-#[inline]
+/// Will jump to wherever the corresponding link register points to, and therefore never return.
+#[inline(always)]
 pub fn ret() -> ! {
-    use core;
-
     match () {
         #[cfg(target_arch = "aarch64")]
         () => unsafe {
