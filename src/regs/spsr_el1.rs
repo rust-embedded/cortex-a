@@ -5,26 +5,26 @@
 // Author(s):
 //   - Andre Richter <andre.o.richter@gmail.com>
 
-//! Saved Program Status Register - EL2
+//! Saved Program Status Register - EL1
 //!
-//! Holds the saved process state when an exception is taken to EL2.
+//! Holds the saved process state when an exception is taken to EL1.
 
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u32,
-    SPSR_EL2 [
+    SPSR_EL1 [
         /// Negative condition flag.
         ///
-        /// Set to the value of the N condition flag on taking an exception to EL2, and copied to
-        /// the N condition flag on executing an exception return operation in EL2.
+        /// Set to the value of the N condition flag on taking an exception to EL1, and copied to
+        /// the N condition flag on executing an exception return operation in EL1.
         ///
         /// Set to 1 if the result of the last flag-setting instruction was negative.
         N OFFSET(31) NUMBITS(1) [],
 
         /// Zero condition flag.
         ///
-        /// Set to the value of the Z condition flag on taking an exception to EL2, and copied to
-        /// the Z condition flag on executing an exception return operation in EL2.
+        /// Set to the value of the Z condition flag on taking an exception to EL1, and copied to
+        /// the Z condition flag on executing an exception return operation in EL1.
         ///
         /// Set to 1 if the result of the last flag-setting instruction was zero, and to 0
         /// otherwise. A result of zero often indicates an equal result from a comparison.
@@ -32,8 +32,8 @@ register_bitfields! {u32,
 
         /// Carry condition flag.
         ///
-        /// Set to the value of the C condition flag on taking an exception to EL2, and copied to
-        /// the C condition flag on executing an exception return operation in EL2.
+        /// Set to the value of the C condition flag on taking an exception to EL1, and copied to
+        /// the C condition flag on executing an exception return operation in EL1.
         ///
         /// Set to 1 if the last flag-setting instruction resulted in a carry condition, for example
         /// an unsigned overflow on an addition.
@@ -41,8 +41,8 @@ register_bitfields! {u32,
 
         /// Overflow condition flag.
         ///
-        /// Set to the value of the V condition flag on taking an exception to EL2, and copied to
-        /// the V condition flag on executing an exception return operation in EL2.
+        /// Set to the value of the V condition flag on taking an exception to EL1, and copied to
+        /// the V condition flag on executing an exception return operation in EL1.
         ///
         /// Set to 1 if the last flag-setting instruction resulted in an overflow condition, for
         /// example a signed overflow on an addition.
@@ -105,8 +105,6 @@ register_bitfields! {u32,
         /// 0b0000 | EL0t
         /// 0b0100 | EL1t
         /// 0b0101 | EL1h
-        /// 0b1000 | EL2t
-        /// 0b1001 | EL2h
         ///
         /// Other values are reserved, and returning to an Exception level that is using AArch64
         /// with a reserved value in this field is treated as an illegal exception return.
@@ -120,18 +118,16 @@ register_bitfields! {u32,
         M OFFSET(0) NUMBITS(4) [
             EL0t = 0b0000,
             EL1t = 0b0100,
-            EL1h = 0b0101,
-            EL2t = 0b1000,
-            EL2h = 0b1001
+            EL1h = 0b0101
         ]
     ]
 }
 
 pub struct Reg;
 
-impl RegisterReadWrite<u32, SPSR_EL2::Register> for Reg {
-    sys_coproc_read_raw!(u32, "SPSR_EL2");
-    sys_coproc_write_raw!(u32, "SPSR_EL2");
+impl RegisterReadWrite<u32, SPSR_EL1::Register> for Reg {
+    sys_coproc_read_raw!(u32, "SPSR_EL1");
+    sys_coproc_write_raw!(u32, "SPSR_EL1");
 }
 
-pub static SPSR_EL2: Reg = Reg {};
+pub static SPSR_EL1: Reg = Reg {};
