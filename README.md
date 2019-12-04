@@ -7,7 +7,7 @@ Low level access to Cortex-A processors
 
 ## Usage
 
-Example from https://github.com/rust-embedded/rust-raspi3-OS-tutorial
+Example from https://github.com/rust-embedded/rust-raspi3-OS-tutorials
 
 ```rust
 unsafe fn el2_to_el1_transition() -> ! {
