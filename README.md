@@ -3,7 +3,12 @@
 
 # cortex-a
 
-Low level access to Cortex-A processors
+Low level access to Cortex-A processors.
+
+## Currently Supported Architectures
+
+- [x] AArch64
+- [ ] AArch32
 
 ## Usage
 
