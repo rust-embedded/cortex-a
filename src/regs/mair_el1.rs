@@ -13,7 +13,7 @@
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u64,
-    MAIR_EL1 [
+    pub MAIR_EL1 [
         /// Attribute 7
         Attr7_HIGH OFFSET(60) NUMBITS(4) [],
         Attr7_LOW_DEVICE OFFSET(56) NUMBITS(4) [],

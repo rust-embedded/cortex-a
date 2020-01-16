@@ -12,7 +12,7 @@
 use register::{cpu::RegisterReadOnly, register_bitfields};
 
 register_bitfields! {u32,
-    ESR_EL1 [
+    pub ESR_EL1 [
         /// Exception Class. Indicates the reason for the exception that this register holds
         /// information about.
         ///

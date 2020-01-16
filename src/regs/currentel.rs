@@ -12,7 +12,7 @@
 use register::{cpu::RegisterReadOnly, register_bitfields};
 
 register_bitfields! {u32,
-    CurrentEL [
+    pub CurrentEL [
         /// Current Exception level. Possible values of this field are:
         ///
         /// 00 EL0

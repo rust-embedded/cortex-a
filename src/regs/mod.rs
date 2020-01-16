@@ -1,5 +1,7 @@
 //! Processor core registers
 
+#![rustfmt::skip]
+
 #[macro_use]
 mod macros;
 

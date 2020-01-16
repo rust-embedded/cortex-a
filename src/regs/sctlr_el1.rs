@@ -12,7 +12,7 @@
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u32,
-    SCTLR_EL1 [
+    pub SCTLR_EL1 [
         /// Instruction access Cacheability control, for accesses at EL0 and
         /// EL1:
         ///

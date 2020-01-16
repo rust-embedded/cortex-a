@@ -18,7 +18,7 @@ use register::{cpu::RegisterReadWrite, register_bitfields};
 //
 // For now, implement the HCR_EL2.E2H == 0 version
 register_bitfields! {u32,
-    CNTHCTL_EL2 [
+    pub CNTHCTL_EL2 [
         /// Traps Non-secure EL0 and EL1 accesses to the physical timer registers to EL2.
         ///
         /// 0 From AArch64 state: Non-secure EL0 and EL1 accesses to the CNTP_CTL_EL0,

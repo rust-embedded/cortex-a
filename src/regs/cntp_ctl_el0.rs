@@ -12,7 +12,7 @@
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u32,
-    CNTP_CTL_EL0 [
+    pub CNTP_CTL_EL0 [
         /// The status of the timer. This bit indicates whether the timer condition is met:
         ///
         /// 0 Timer condition is not met.

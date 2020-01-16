@@ -13,7 +13,7 @@
 use register::{cpu::RegisterReadOnly, register_bitfields};
 
 register_bitfields! {u64,
-    ID_AA64MMFR0_EL1 [
+    pub ID_AA64MMFR0_EL1 [
         /// Support for 4KiB memory translation granule size. Defined values are:
         ///
         /// 0000 4KiB granule supported.

@@ -12,7 +12,7 @@
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u32,
-    DAIF [
+    pub DAIF [
         /// Process state D mask. The possible values of this bit are:
         ///
         /// 0 Watchpoint, Breakpoint, and Software Step exceptions targeted at the current Exception

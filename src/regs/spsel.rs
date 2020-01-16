@@ -12,7 +12,7 @@
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u32,
-    SPSel [
+    pub SPSel [
         /// Stack pointer to use. Possible values of this bit are:
         ///
         /// 0 Use SP_EL0 at all Exception levels.

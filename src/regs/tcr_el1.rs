@@ -12,7 +12,7 @@
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u64,
-    TCR_EL1 [
+    pub TCR_EL1 [
 
         /// Top Byte ignored - indicates whether the top byte of an address is used for address
         /// match for the TTBR1_EL1 region, or ignored and used for tagged addresses. Defined values
