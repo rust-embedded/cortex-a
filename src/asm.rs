@@ -23,6 +23,7 @@ pub fn nop() {
 }
 
 /// Wait For Event
+///
 /// For more details of wfe - sev pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
 #[inline(always)]
 pub fn wfe() {
@@ -35,8 +36,10 @@ pub fn wfe() {
     }
 }
 
-/// Send an event.
+/// Send EVent.
+///
 /// SEV causes an event to be signaled to all cores within a multiprocessor system.
+///
 /// For more details of wfe - sev pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
 #[inline(always)]
 pub fn sev() {
