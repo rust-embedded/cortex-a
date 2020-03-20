@@ -23,11 +23,29 @@ pub fn nop() {
 }
 
 /// Wait For Event
+///
+/// For more details of wfe - sev pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
 #[inline(always)]
 pub fn wfe() {
     match () {
         #[cfg(target_arch = "aarch64")]
         () => unsafe { asm!("wfe" :::: "volatile") },
+
+        #[cfg(not(target_arch = "aarch64"))]
+        () => unimplemented!(),
+    }
+}
+
+/// Send EVent.
+///
+/// SEV causes an event to be signaled to all cores within a multiprocessor system.
+///
+/// For more details of wfe - sev pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
+#[inline(always)]
+pub fn sev() {
+    match () {
+        #[cfg(target_arch = "aarch64")]
+        () => unsafe { asm!("sev" :::: "volatile") },
 
         #[cfg(not(target_arch = "aarch64"))]
         () => unimplemented!(),
