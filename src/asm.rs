@@ -15,7 +15,7 @@ use core;
 pub fn nop() {
     match () {
         #[cfg(target_arch = "aarch64")]
-        () => unsafe { asm!("nop" :::: "volatile") },
+        () => unsafe { llvm_asm!("nop" :::: "volatile") },
 
         #[cfg(not(target_arch = "aarch64"))]
         () => unimplemented!(),
@@ -29,7 +29,7 @@ pub fn nop() {
 pub fn wfe() {
     match () {
         #[cfg(target_arch = "aarch64")]
-        () => unsafe { asm!("wfe" :::: "volatile") },
+        () => unsafe { llvm_asm!("wfe" :::: "volatile") },
 
         #[cfg(not(target_arch = "aarch64"))]
         () => unimplemented!(),
@@ -45,7 +45,7 @@ pub fn wfe() {
 pub fn sev() {
     match () {
         #[cfg(target_arch = "aarch64")]
-        () => unsafe { asm!("sev" :::: "volatile") },
+        () => unsafe { llvm_asm!("sev" :::: "volatile") },
 
         #[cfg(not(target_arch = "aarch64"))]
         () => unimplemented!(),
@@ -60,7 +60,7 @@ pub fn eret() -> ! {
     match () {
         #[cfg(target_arch = "aarch64")]
         () => unsafe {
-            asm!("eret" :::: "volatile");
+            llvm_asm!("eret" :::: "volatile");
             core::intrinsics::unreachable()
         },
 
@@ -77,7 +77,7 @@ pub fn ret() -> ! {
     match () {
         #[cfg(target_arch = "aarch64")]
         () => unsafe {
-            asm!("ret" :::: "volatile");
+            llvm_asm!("ret" :::: "volatile");
             core::intrinsics::unreachable()
         },
 

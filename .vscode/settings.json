@@ -2,5 +2,9 @@
     "editor.formatOnSave": true,
     "editor.rulers": [
         100
-    ]
+    ],
+    "rust-analyzer.checkOnSave.extraArgs": [
+        "--target=aarch64-unknown-none-softfloat"
+    ],
+    "rust-analyzer.checkOnSave.allTargets": false
 }

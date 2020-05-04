@@ -19,10 +19,10 @@
 //! This crate is guaranteed to compile on stable Rust 1.39 and up. It *might* compile with older
 //! versions but that may change in any new patch release.
 
-#![no_std]
-#![feature(asm)]
-#![feature(custom_inner_attributes)]
 #![feature(core_intrinsics)]
+#![feature(custom_inner_attributes)]
+#![feature(llvm_asm)]
+#![no_std]
 
 pub mod asm;
 pub mod barrier;

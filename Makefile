@@ -6,6 +6,9 @@ default:
 clippy:
 	cargo clippy --target $(TARGET)
 
+check:
+	cargo check --target $(TARGET)
+
 fmt:
 	cargo fmt
 
