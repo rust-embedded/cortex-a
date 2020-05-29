@@ -42,7 +42,11 @@ macro_rules! dmb_dsb {
 }
 
 pub struct SY;
+pub struct ISH;
+pub struct ISHST;
 
+dmb_dsb!(ISH);
+dmb_dsb!(ISHST);
 dmb_dsb!(SY);
 
 impl sealed::Isb for SY {
