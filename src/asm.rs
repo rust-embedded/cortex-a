@@ -22,6 +22,20 @@ pub fn nop() {
     }
 }
 
+/// Wait For Interrupt
+///
+/// For more details on wfi, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
+#[inline(always)]
+pub fn wfi() {
+    match () {
+        #[cfg(target_arch = "aarch64")]
+        () => unsafe { llvm_asm!("wfi" :::: "volatile") },
+
+        #[cfg(not(target_arch = "aarch64"))]
+        () => unimplemented!(),
+    }
+}
+
 /// Wait For Event
 ///
 /// For more details of wfe - sev pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
@@ -30,6 +44,22 @@ pub fn wfe() {
     match () {
         #[cfg(target_arch = "aarch64")]
         () => unsafe { llvm_asm!("wfe" :::: "volatile") },
+
+        #[cfg(not(target_arch = "aarch64"))]
+        () => unimplemented!(),
+    }
+}
+
+/// Send EVent.Locally
+///
+/// SEV causes an event to be signaled to the local core within a multiprocessor system.
+///
+/// For more details of wfe - sev/sevl pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
+#[inline(always)]
+pub fn sevl() {
+    match () {
+        #[cfg(target_arch = "aarch64")]
+        () => unsafe { llvm_asm!("sevl" :::: "volatile") },
 
         #[cfg(not(target_arch = "aarch64"))]
         () => unimplemented!(),
