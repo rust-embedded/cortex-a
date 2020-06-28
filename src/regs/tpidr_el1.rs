@@ -5,7 +5,7 @@
 // Author(s):
 //   - Erik Verbruggen <erikjv@me.com>
 
-//! EL1 Software Thread ID Register.
+//! Software Thread ID Register - EL1.
 //!
 //! Provides a location where software executing at EL1 can store thread identifying information,
 //! for OS management purposes.

@@ -5,7 +5,7 @@
 // Author(s):
 //   - Erik Verbruggen <erikjv@me.com>
 
-//! EL0 Read/Write Software Thread ID Register.
+//! Read/Write Software Thread ID Register - EL0.
 //!
 //! Provides a location where software executing at EL0 can store thread identifying information,
 //! for OS management purposes.
