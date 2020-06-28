@@ -8,18 +8,14 @@
 
 //! Miscellaneous assembly instructions
 
-use core;
-
 /// The classic no-op
 #[inline(always)]
 pub fn nop() {
-    match () {
-        #[cfg(target_arch = "aarch64")]
-        () => unsafe { llvm_asm!("nop" :::: "volatile") },
+    #[cfg(target_arch = "aarch64")]
+    unsafe { llvm_asm!("nop" :::: "volatile") }
 
-        #[cfg(not(target_arch = "aarch64"))]
-        () => unimplemented!(),
-    }
+    #[cfg(not(target_arch = "aarch64"))]
+    unimplemented!()
 }
 
 /// Wait For Interrupt
@@ -27,13 +23,11 @@ pub fn nop() {
 /// For more details on wfi, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
 #[inline(always)]
 pub fn wfi() {
-    match () {
-        #[cfg(target_arch = "aarch64")]
-        () => unsafe { llvm_asm!("wfi" :::: "volatile") },
+    #[cfg(target_arch = "aarch64")]
+    unsafe { llvm_asm!("wfi" :::: "volatile") }
 
-        #[cfg(not(target_arch = "aarch64"))]
-        () => unimplemented!(),
-    }
+    #[cfg(not(target_arch = "aarch64"))]
+    unimplemented!()
 }
 
 /// Wait For Event
@@ -41,13 +35,11 @@ pub fn wfi() {
 /// For more details of wfe - sev pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
 #[inline(always)]
 pub fn wfe() {
-    match () {
-        #[cfg(target_arch = "aarch64")]
-        () => unsafe { llvm_asm!("wfe" :::: "volatile") },
+    #[cfg(target_arch = "aarch64")]
+    unsafe { llvm_asm!("wfe" :::: "volatile") }
 
-        #[cfg(not(target_arch = "aarch64"))]
-        () => unimplemented!(),
-    }
+    #[cfg(not(target_arch = "aarch64"))]
+    unimplemented!()
 }
 
 /// Send EVent.Locally
@@ -57,13 +49,11 @@ pub fn wfe() {
 /// For more details of wfe - sev/sevl pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
 #[inline(always)]
 pub fn sevl() {
-    match () {
-        #[cfg(target_arch = "aarch64")]
-        () => unsafe { llvm_asm!("sevl" :::: "volatile") },
+    #[cfg(target_arch = "aarch64")]
+    unsafe { llvm_asm!("sevl" :::: "volatile") }
 
-        #[cfg(not(target_arch = "aarch64"))]
-        () => unimplemented!(),
-    }
+    #[cfg(not(target_arch = "aarch64"))]
+    unimplemented!()
 }
 
 /// Send EVent.
@@ -73,13 +63,11 @@ pub fn sevl() {
 /// For more details of wfe - sev pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
 #[inline(always)]
 pub fn sev() {
-    match () {
-        #[cfg(target_arch = "aarch64")]
-        () => unsafe { llvm_asm!("sev" :::: "volatile") },
+    #[cfg(target_arch = "aarch64")]
+    unsafe { llvm_asm!("sev" :::: "volatile") }
 
-        #[cfg(not(target_arch = "aarch64"))]
-        () => unimplemented!(),
-    }
+    #[cfg(not(target_arch = "aarch64"))]
+    unimplemented!()
 }
 
 /// Exception return
@@ -87,16 +75,14 @@ pub fn sev() {
 /// Will jump to wherever the corresponding link register points to, and therefore never return.
 #[inline(always)]
 pub fn eret() -> ! {
-    match () {
-        #[cfg(target_arch = "aarch64")]
-        () => unsafe {
-            llvm_asm!("eret" :::: "volatile");
-            core::intrinsics::unreachable()
-        },
-
-        #[cfg(not(target_arch = "aarch64"))]
-        () => unimplemented!(),
+    #[cfg(target_arch = "aarch64")]
+    unsafe {
+        llvm_asm!("eret" :::: "volatile");
+        core::intrinsics::unreachable()
     }
+
+    #[cfg(not(target_arch = "aarch64"))]
+    unimplemented!()
 }
 
 /// Function return
@@ -104,14 +90,12 @@ pub fn eret() -> ! {
 /// Will jump to wherever the corresponding link register points to, and therefore never return.
 #[inline(always)]
 pub fn ret() -> ! {
-    match () {
-        #[cfg(target_arch = "aarch64")]
-        () => unsafe {
-            llvm_asm!("ret" :::: "volatile");
-            core::intrinsics::unreachable()
-        },
-
-        #[cfg(not(target_arch = "aarch64"))]
-        () => unimplemented!(),
+    #[cfg(target_arch = "aarch64")]
+    unsafe {
+        llvm_asm!("ret" :::: "volatile");
+        core::intrinsics::unreachable()
     }
+
+    #[cfg(not(target_arch = "aarch64"))]
+    unimplemented!()
 }
