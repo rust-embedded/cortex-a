@@ -12,7 +12,9 @@
 #[inline(always)]
 pub fn nop() {
     #[cfg(target_arch = "aarch64")]
-    unsafe { llvm_asm!("nop" :::: "volatile") }
+    unsafe {
+        llvm_asm!("nop" :::: "volatile")
+    }
 
     #[cfg(not(target_arch = "aarch64"))]
     unimplemented!()
@@ -24,7 +26,9 @@ pub fn nop() {
 #[inline(always)]
 pub fn wfi() {
     #[cfg(target_arch = "aarch64")]
-    unsafe { llvm_asm!("wfi" :::: "volatile") }
+    unsafe {
+        llvm_asm!("wfi" :::: "volatile")
+    }
 
     #[cfg(not(target_arch = "aarch64"))]
     unimplemented!()
@@ -36,7 +40,9 @@ pub fn wfi() {
 #[inline(always)]
 pub fn wfe() {
     #[cfg(target_arch = "aarch64")]
-    unsafe { llvm_asm!("wfe" :::: "volatile") }
+    unsafe {
+        llvm_asm!("wfe" :::: "volatile")
+    }
 
     #[cfg(not(target_arch = "aarch64"))]
     unimplemented!()
@@ -50,7 +56,9 @@ pub fn wfe() {
 #[inline(always)]
 pub fn sevl() {
     #[cfg(target_arch = "aarch64")]
-    unsafe { llvm_asm!("sevl" :::: "volatile") }
+    unsafe {
+        llvm_asm!("sevl" :::: "volatile")
+    }
 
     #[cfg(not(target_arch = "aarch64"))]
     unimplemented!()
@@ -64,7 +72,9 @@ pub fn sevl() {
 #[inline(always)]
 pub fn sev() {
     #[cfg(target_arch = "aarch64")]
-    unsafe { llvm_asm!("sev" :::: "volatile") }
+    unsafe {
+        llvm_asm!("sev" :::: "volatile")
+    }
 
     #[cfg(not(target_arch = "aarch64"))]
     unimplemented!()

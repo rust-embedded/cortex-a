@@ -7,7 +7,8 @@
 
 //! Main ID Register - EL1
 //!
-//! Provides identification information for the processor, including an implementer code for the device and a device ID number.
+//! Provides identification information for the processor, including an implementer code for the
+//! device and a device ID number.
 
 use register::{cpu::RegisterReadOnly, register_bitfields};
 
@@ -82,7 +83,6 @@ register_bitfields! {u64,
         Revision OFFSET(0) NUMBITS(4) []
     ]
 }
-
 
 pub struct Reg;
 
