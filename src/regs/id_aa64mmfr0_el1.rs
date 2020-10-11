@@ -47,6 +47,17 @@ register_bitfields! {u64,
             NotSupported = 0b0000
         ],
 
+        /// Number of bits supported in the ASID:
+        ///
+        /// 0000 ASIDs are 8 bits.
+        /// 0010 ASIDs are 16 bits.
+        ///
+        /// All other values are reserved.
+        ASIDBits OFFSET(4) NUMBITS(4) [
+            Bits_8 = 0b0000,
+            Bits_16 = 0b0010
+        ],
+
         /// Physical Address range supported. Defined values are:
         ///
         /// 0000 32 bits, 4GiB.
