@@ -3,7 +3,7 @@
 #![rustfmt::skip]
 
 #[macro_use]
-mod macros;
+pub mod macros;
 
 mod cntfrq_el0;
 mod cnthctl_el2;
