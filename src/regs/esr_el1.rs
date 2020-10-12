@@ -11,7 +11,7 @@
 
 use register::{cpu::RegisterReadOnly, register_bitfields};
 
-register_bitfields! {u32,
+register_bitfields! {u64,
     pub ESR_EL1 [
         /// Exception Class. Indicates the reason for the exception that this register holds
         /// information about.
@@ -52,8 +52,8 @@ register_bitfields! {u32,
 
 pub struct Reg;
 
-impl RegisterReadOnly<u32, ESR_EL1::Register> for Reg {
-    sys_coproc_read_raw!(u32, "ESR_EL1");
+impl RegisterReadOnly<u64, ESR_EL1::Register> for Reg {
+    sys_coproc_read_raw!(u64, "ESR_EL1");
 }
 
 #[allow(non_upper_case_globals)]
