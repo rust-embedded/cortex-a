@@ -29,13 +29,13 @@ macro_rules! dmb_dsb {
         impl sealed::Dmb for $A {
             #[inline(always)]
             unsafe fn __dmb(&self) {
-                llvm_asm!(concat!("DMB ", stringify!($A)) : : : "memory" : "volatile")
+                asm!(concat!("DMB ", stringify!($A)), options(nostack))
             }
         }
         impl sealed::Dsb for $A {
             #[inline(always)]
             unsafe fn __dsb(&self) {
-                llvm_asm!(concat!("DSB ", stringify!($A)) : : : "memory" : "volatile")
+                asm!(concat!("DSB ", stringify!($A)), options(nostack))
             }
         }
     };
@@ -52,7 +52,7 @@ dmb_dsb!(SY);
 impl sealed::Isb for SY {
     #[inline(always)]
     unsafe fn __isb(&self) {
-        llvm_asm!("ISB SY" : : : "memory" : "volatile")
+        asm!("ISB SY", options(nostack))
     }
 }
 

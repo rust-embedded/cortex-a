@@ -13,7 +13,7 @@
 pub fn nop() {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        llvm_asm!("nop" :::: "volatile")
+        asm!("nop", options(nomem, nostack))
     }
 
     #[cfg(not(target_arch = "aarch64"))]
@@ -27,7 +27,7 @@ pub fn nop() {
 pub fn wfi() {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        llvm_asm!("wfi" :::: "volatile")
+        asm!("wfi", options(nomem, nostack))
     }
 
     #[cfg(not(target_arch = "aarch64"))]
@@ -41,7 +41,7 @@ pub fn wfi() {
 pub fn wfe() {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        llvm_asm!("wfe" :::: "volatile")
+        asm!("wfe", options(nomem, nostack))
     }
 
     #[cfg(not(target_arch = "aarch64"))]
@@ -57,7 +57,7 @@ pub fn wfe() {
 pub fn sevl() {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        llvm_asm!("sevl" :::: "volatile")
+        asm!("sevl", options(nomem, nostack))
     }
 
     #[cfg(not(target_arch = "aarch64"))]
@@ -73,7 +73,7 @@ pub fn sevl() {
 pub fn sev() {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        llvm_asm!("sev" :::: "volatile")
+        asm!("sev", options(nomem, nostack))
     }
 
     #[cfg(not(target_arch = "aarch64"))]
@@ -87,7 +87,7 @@ pub fn sev() {
 pub fn eret() -> ! {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        llvm_asm!("eret" :::: "volatile");
+        asm!("eret", options(nomem, nostack));
         core::intrinsics::unreachable()
     }
 
@@ -102,7 +102,7 @@ pub fn eret() -> ! {
 pub fn ret() -> ! {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        llvm_asm!("ret" :::: "volatile");
+        asm!("ret", options(nomem, nostack));
         core::intrinsics::unreachable()
     }
 

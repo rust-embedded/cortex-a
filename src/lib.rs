@@ -22,7 +22,6 @@
 #![feature(core_intrinsics)]
 #![feature(custom_inner_attributes)]
 #![feature(asm)]
-#![feature(llvm_asm)]
 #![no_std]
 
 pub mod asm;
