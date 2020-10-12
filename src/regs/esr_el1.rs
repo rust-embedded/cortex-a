@@ -56,5 +56,4 @@ impl RegisterReadOnly<u64, ESR_EL1::Register> for Reg {
     sys_coproc_read_raw!(u64, "ESR_EL1");
 }
 
-#[allow(non_upper_case_globals)]
 pub static ESR_EL1: Reg = Reg {};
