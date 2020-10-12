@@ -13,27 +13,89 @@ use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u64,
     pub TCR_EL1 [
+        /// When ARMv8.3-PAuth is implemented:
+        ///     Controls the use of the top byte of instruction addresses for address matching.
+        ///     0 TCR_EL1.TBI1 applies to Instruction and Data accesses.
+        ///     1 TCR_EL1.TBI1 applies to Data accesses only.
+        ///     This affects addresses where the address would be translated by tables pointed
+        ///     to by TTBR1_EL1. This field resets to an architecturally UNKNOWN value.
+        /// Otherwise:
+        ///     Reserved, RES0.
+        TBID1  OFFSET(52) NUMBITS(1) [],
 
-        /// Top Byte ignored - indicates whether the top byte of an address is used for address
-        /// match for the TTBR1_EL1 region, or ignored and used for tagged addresses. Defined values
-        /// are:
+        /// When ARMv8.3-PAuth is implemented:
+        ///     Controls the use of the top byte of instruction addresses for address matching.
+        ///     0 TCR_EL1.TBI0 applies to Instruction and Data accesses.
+        ///     1 TCR_EL1.TBI0 applies to Data accesses only.
+        ///     This affects addresses where the address would be translated by tables pointed
+        ///     to by TTBR0_EL1. This field resets to an architecturally UNKNOWN value.
+        /// Otherwise:
+        ///     Reserved, RES0.
+        TBID0  OFFSET(51) NUMBITS(1) [],
+
+        /// Top Byte ignored - indicates whether the top byte of an address is
+        /// used for address match for the TTBR1_EL1 region, or ignored and used
+        /// for tagged addresses. Defined values are:
         ///
         /// 0 Top Byte used in the address calculation.
         /// 1 Top Byte ignored in the address calculation.
+        ///
+        /// This affects addresses generated in EL0 and EL1 using AArch64 where
+        /// the address would be translated by tables pointed to by TTBR1_EL1.
+        /// It has an effect whether the EL1&0 translation regime is enabled or not.
+        ///
+        /// If ARMv8.3-PAuth is implemented and TCR_EL1.TBID1 is 1, then this field
+        /// only applies to Data accesses.
+        /// Otherwise, if the value of TBI1 is 1 and bit [55] of the target address
+        /// to be stored to the PC is 0, then bits[63:56] of that target address are
+        /// also set to 0 before the address is stored in the PC, in the following cases:
+        ///
+        /// • A branch or procedure return within EL0 or EL1.
+        /// • An exception taken to EL1.
+        /// • An exception return to EL0 or EL1.
         TBI1  OFFSET(38) NUMBITS(1) [
             Used = 0,
             Ignored = 1
         ],
 
-        /// Top Byte ignored - indicates whether the top byte of an address is used for address
-        /// match for the TTBR0_EL1 region, or ignored and used for tagged addresses. Defined values
-        /// are:
+        /// Top Byte ignored - indicates whether the top byte of an address is
+        /// used for address match for the TTBR0_EL1 region, or ignored and used
+        /// for tagged addresses. Defined values are:
         ///
         /// 0 Top Byte used in the address calculation.
         /// 1 Top Byte ignored in the address calculation.
+        ///
+        /// This affects addresses generated in EL0 and EL1 using AArch64 where
+        /// the address would be translated by tables pointed to by TTBR0_EL1.
+        /// It has an effect whether the EL1&0 translation regime is enabled or not.
+        ///
+        /// If ARMv8.3-PAuth is implemented and TCR_EL1.TBID0 is 1, then this field
+        /// only applies to Data accesses.
+        /// Otherwise, if the value of TBI0 is 1 and bit [55] of the target address
+        /// to be stored to the PC is 0, then bits[63:56] of that target address are
+        /// also set to 0 before the address is stored in the PC, in the following cases:
+        ///
+        /// • A branch or procedure return within EL0 or EL1.
+        /// • An exception taken to EL1.
+        /// • An exception return to EL0 or EL1.
         TBI0  OFFSET(37) NUMBITS(1) [
             Used = 0,
             Ignored = 1
+        ],
+
+        /// ASID Size. Defined values are:
+        ///
+        /// 0 8 bit - the upper 8 bits of TTBR0_EL1 and TTBR1_EL1 are ignored by hardware
+        ///           for every purpose except reading back the register, and are treated
+        ///           as if they are all zeros for when used for allocation and matching
+        ///           entries in the TLB.
+        /// 1 16 bit - the upper 16 bits of TTBR0_EL1 and TTBR1_EL1 are used for allocation
+        ///            and matching in the TLB.
+        ///
+        /// If the implementation has only 8 bits of ASID, this field is RES0.
+        AS  OFFSET(36) NUMBITS(1) [
+            ASID8Bits = 0,
+            ASID16Bits = 1
         ],
 
         /// Intermediate Physical Address Size.
@@ -57,8 +119,7 @@ register_bitfields! {u64,
         ///
         /// In an implementation that supports 52-bit PAs, if the value of this field is not 110 ,
         /// then bits[51:48] of every translation table base address for the stage of translation
-        /// controlled by TCR_EL1 are 0000
-        /// .
+        /// controlled by TCR_EL1 are 0000.
         IPS   OFFSET(32) NUMBITS(3) [
             Bits_32 = 0b000,
             Bits_36 = 0b001,
@@ -150,6 +211,13 @@ register_bitfields! {u64,
             EnableTTBR1Walks = 0,
             DisableTTBR1Walks = 1
         ],
+
+        /// Selects whether TTBR0_EL1 or TTBR1_EL1 defines the ASID.
+        /// The encoding of this bit is:
+        ///
+        /// 0 TTBR0_EL1.ASID defines the ASID.
+        /// 1 TTBR1_EL1.ASID defines the ASID.
+        A1  OFFSET(22) NUMBITS(1) [],
 
         /// The size offset of the memory region addressed by TTBR0_EL1. The region size is
         /// 2^(64-T0SZ) bytes.
