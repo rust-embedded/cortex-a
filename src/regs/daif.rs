@@ -11,7 +11,7 @@
 
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
-register_bitfields! {u32,
+register_bitfields! {u64,
     pub DAIF [
         /// Process state D mask. The possible values of this bit are:
         ///
@@ -67,9 +67,9 @@ register_bitfields! {u32,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u32, DAIF::Register> for Reg {
-    sys_coproc_read_raw!(u32, "DAIF");
-    sys_coproc_write_raw!(u32, "DAIF");
+impl RegisterReadWrite<u64, DAIF::Register> for Reg {
+    sys_coproc_read_raw!(u64, "DAIF");
+    sys_coproc_write_raw!(u64, "DAIF");
 }
 
 pub static DAIF: Reg = Reg {};

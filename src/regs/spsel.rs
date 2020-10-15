@@ -11,7 +11,7 @@
 
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
-register_bitfields! {u32,
+register_bitfields! {u64,
     pub SPSel [
         /// Stack pointer to use. Possible values of this bit are:
         ///
@@ -28,9 +28,9 @@ register_bitfields! {u32,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u32, SPSel::Register> for Reg {
-    sys_coproc_read_raw!(u32, "SPSEL");
-    sys_coproc_write_raw!(u32, "SPSEL");
+impl RegisterReadWrite<u64, SPSel::Register> for Reg {
+    sys_coproc_read_raw!(u64, "SPSEL");
+    sys_coproc_write_raw!(u64, "SPSEL");
 }
 
 #[allow(non_upper_case_globals)]

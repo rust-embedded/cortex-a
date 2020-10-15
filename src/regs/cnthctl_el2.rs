@@ -17,7 +17,7 @@ use register::{cpu::RegisterReadWrite, register_bitfields};
 // TODO: Figure out how we can differentiate depending on HCR_EL2.E2H state
 //
 // For now, implement the HCR_EL2.E2H == 0 version
-register_bitfields! {u32,
+register_bitfields! {u64,
     pub CNTHCTL_EL2 [
         /// Traps Non-secure EL0 and EL1 accesses to the physical timer registers to EL2.
         ///
@@ -53,9 +53,9 @@ register_bitfields! {u32,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u32, CNTHCTL_EL2::Register> for Reg {
-    sys_coproc_read_raw!(u32, "CNTHCTL_EL2");
-    sys_coproc_write_raw!(u32, "CNTHCTL_EL2");
+impl RegisterReadWrite<u64, CNTHCTL_EL2::Register> for Reg {
+    sys_coproc_read_raw!(u64, "CNTHCTL_EL2");
+    sys_coproc_write_raw!(u64, "CNTHCTL_EL2");
 }
 
 #[allow(non_upper_case_globals)]

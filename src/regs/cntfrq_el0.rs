@@ -15,8 +15,8 @@ use register::cpu::RegisterReadOnly;
 
 pub struct Reg;
 
-impl RegisterReadOnly<u32, ()> for Reg {
-    sys_coproc_read_raw!(u32, "CNTFRQ_EL0");
+impl RegisterReadOnly<u64, ()> for Reg {
+    sys_coproc_read_raw!(u64, "CNTFRQ_EL0");
 }
 
 pub static CNTFRQ_EL0: Reg = Reg {};
