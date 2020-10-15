@@ -13,9 +13,9 @@ use register::cpu::RegisterReadWrite;
 
 pub struct Reg;
 
-impl RegisterReadWrite<u32, ()> for Reg {
-    sys_coproc_read_raw!(u32, "CNTP_TVAL_EL0");
-    sys_coproc_write_raw!(u32, "CNTP_TVAL_EL0");
+impl RegisterReadWrite<u64, ()> for Reg {
+    sys_coproc_read_raw!(u64, "CNTP_TVAL_EL0");
+    sys_coproc_write_raw!(u64, "CNTP_TVAL_EL0");
 }
 
 pub static CNTP_TVAL_EL0: Reg = Reg {};

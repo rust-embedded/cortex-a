@@ -11,7 +11,7 @@
 
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
-register_bitfields! {u32,
+register_bitfields! {u64,
     pub SCTLR_EL1 [
         /// Instruction access Cacheability control, for accesses at EL0 and
         /// EL1:
@@ -79,9 +79,9 @@ register_bitfields! {u32,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u32, SCTLR_EL1::Register> for Reg {
-    sys_coproc_read_raw!(u32, "SCTLR_EL1");
-    sys_coproc_write_raw!(u32, "SCTLR_EL1");
+impl RegisterReadWrite<u64, SCTLR_EL1::Register> for Reg {
+    sys_coproc_read_raw!(u64, "SCTLR_EL1");
+    sys_coproc_write_raw!(u64, "SCTLR_EL1");
 }
 
 pub static SCTLR_EL1: Reg = Reg {};

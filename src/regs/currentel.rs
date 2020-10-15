@@ -11,7 +11,7 @@
 
 use register::{cpu::RegisterReadOnly, register_bitfields};
 
-register_bitfields! {u32,
+register_bitfields! {u64,
     pub CurrentEL [
         /// Current Exception level. Possible values of this field are:
         ///
@@ -35,8 +35,8 @@ register_bitfields! {u32,
 
 pub struct Reg;
 
-impl RegisterReadOnly<u32, CurrentEL::Register> for Reg {
-    sys_coproc_read_raw!(u32, "CurrentEL");
+impl RegisterReadOnly<u64, CurrentEL::Register> for Reg {
+    sys_coproc_read_raw!(u64, "CurrentEL");
 }
 
 #[allow(non_upper_case_globals)]

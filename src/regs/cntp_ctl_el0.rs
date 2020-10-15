@@ -11,7 +11,7 @@
 
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
-register_bitfields! {u32,
+register_bitfields! {u64,
     pub CNTP_CTL_EL0 [
         /// The status of the timer. This bit indicates whether the timer condition is met:
         ///
@@ -43,9 +43,9 @@ register_bitfields! {u32,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u32, CNTP_CTL_EL0::Register> for Reg {
-    sys_coproc_read_raw!(u32, "CNTP_CTL_EL0");
-    sys_coproc_write_raw!(u32, "CNTP_CTL_EL0");
+impl RegisterReadWrite<u64, CNTP_CTL_EL0::Register> for Reg {
+    sys_coproc_read_raw!(u64, "CNTP_CTL_EL0");
+    sys_coproc_write_raw!(u64, "CNTP_CTL_EL0");
 }
 
 pub static CNTP_CTL_EL0: Reg = Reg {};

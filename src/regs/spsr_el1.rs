@@ -11,7 +11,7 @@
 
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
-register_bitfields! {u32,
+register_bitfields! {u64,
     pub SPSR_EL1 [
         /// Negative condition flag.
         ///
@@ -125,9 +125,9 @@ register_bitfields! {u32,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u32, SPSR_EL1::Register> for Reg {
-    sys_coproc_read_raw!(u32, "SPSR_EL1");
-    sys_coproc_write_raw!(u32, "SPSR_EL1");
+impl RegisterReadWrite<u64, SPSR_EL1::Register> for Reg {
+    sys_coproc_read_raw!(u64, "SPSR_EL1");
+    sys_coproc_write_raw!(u64, "SPSR_EL1");
 }
 
 pub static SPSR_EL1: Reg = Reg {};
