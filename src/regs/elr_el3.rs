@@ -15,8 +15,8 @@ use register::cpu::RegisterReadWrite;
 pub struct Reg;
 
 impl RegisterReadWrite<u64, ()> for Reg {
-    sys_coproc_read_raw!(u64, "ELR_EL3");
-    sys_coproc_write_raw!(u64, "ELR_EL3");
+    sys_coproc_read_raw!(u64, "ELR_EL3", "x");
+    sys_coproc_write_raw!(u64, "ELR_EL3", "x");
 }
 
 pub static ELR_EL3: Reg = Reg {};

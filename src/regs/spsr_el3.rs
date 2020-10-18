@@ -131,8 +131,8 @@ register_bitfields! {u64,
 pub struct Reg;
 
 impl RegisterReadWrite<u64, SPSR_EL3::Register> for Reg {
-    sys_coproc_read_raw!(u64, "SPSR_EL3");
-    sys_coproc_write_raw!(u64, "SPSR_EL3");
+    sys_coproc_read_raw!(u64, "SPSR_EL3", "x");
+    sys_coproc_write_raw!(u64, "SPSR_EL3", "x");
 }
 
 pub static SPSR_EL3: Reg = Reg {};

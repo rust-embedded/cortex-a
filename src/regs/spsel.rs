@@ -29,8 +29,8 @@ register_bitfields! {u64,
 pub struct Reg;
 
 impl RegisterReadWrite<u64, SPSel::Register> for Reg {
-    sys_coproc_read_raw!(u64, "SPSEL");
-    sys_coproc_write_raw!(u64, "SPSEL");
+    sys_coproc_read_raw!(u64, "SPSEL", "x");
+    sys_coproc_write_raw!(u64, "SPSEL", "x");
 }
 
 #[allow(non_upper_case_globals)]

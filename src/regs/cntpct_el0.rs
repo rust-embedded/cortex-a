@@ -14,7 +14,7 @@ use register::cpu::RegisterReadOnly;
 pub struct Reg;
 
 impl RegisterReadOnly<u64, ()> for Reg {
-    sys_coproc_read_raw!(u64, "CNTPCT_EL0");
+    sys_coproc_read_raw!(u64, "CNTPCT_EL0", "x");
 }
 
 pub static CNTPCT_EL0: Reg = Reg {};

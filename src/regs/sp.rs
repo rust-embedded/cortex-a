@@ -12,8 +12,8 @@ use register::cpu::RegisterReadWrite;
 pub struct Reg;
 
 impl RegisterReadWrite<u64, ()> for Reg {
-    read_raw!(u64, "sp");
-    write_raw!(u64, "sp");
+    read_raw!(u64, "sp", "x");
+    write_raw!(u64, "sp", "x");
 }
 
 pub static SP: Reg = Reg {};

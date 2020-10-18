@@ -36,7 +36,7 @@ register_bitfields! {u64,
 pub struct Reg;
 
 impl RegisterReadOnly<u64, CurrentEL::Register> for Reg {
-    sys_coproc_read_raw!(u64, "CurrentEL");
+    sys_coproc_read_raw!(u64, "CurrentEL", "x");
 }
 
 #[allow(non_upper_case_globals)]
