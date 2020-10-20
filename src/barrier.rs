@@ -56,6 +56,9 @@ impl sealed::Isb for SY {
     }
 }
 
+/// # Safety
+///
+/// In your own hands, this is hardware land!
 #[inline(always)]
 pub unsafe fn dmb<A>(arg: A)
 where
@@ -64,6 +67,9 @@ where
     arg.__dmb()
 }
 
+/// # Safety
+///
+/// In your own hands, this is hardware land!
 #[inline(always)]
 pub unsafe fn dsb<A>(arg: A)
 where
@@ -72,6 +78,9 @@ where
     arg.__dsb()
 }
 
+/// # Safety
+///
+/// In your own hands, this is hardware land!
 #[inline(always)]
 pub unsafe fn isb<A>(arg: A)
 where
