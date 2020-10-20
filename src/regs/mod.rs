@@ -1,5 +1,6 @@
 //! Processor core registers
 
+#![allow(unused_attributes)]
 #![rustfmt::skip]
 
 #[macro_use]
