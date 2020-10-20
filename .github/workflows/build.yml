@@ -1,0 +1,95 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+
+jobs:
+  test:
+    name: Test
+
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [
+          ubuntu-latest,
+          macos-latest,
+          windows-latest
+        ]
+        target: [
+          aarch64-unknown-none-softfloat
+        ]
+        variant: [
+          "",           # debug
+          "--release"
+        ]
+
+    runs-on: ${{ matrix.platform }}
+    timeout-minutes: 15
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v1
+
+    - name: Install Rustup (macOS)
+      run: |
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        echo ::add-path::$HOME/.cargo/bin
+      if: runner.os == 'macOS'
+
+    - name: Set Rustup profile to minimal
+      run: rustup set profile minimal
+
+    - name: Switch to Rust nightly
+      run: rustup default nightly
+
+    - name: Install Target Support
+      run: |
+        rustup target add ${{ matrix.target }}
+
+    - name: Print Rust Version
+      run: |
+        rustc -Vv
+        cargo -Vv
+
+    - name: Build Package With All Warnings Denied
+      run: cargo build ${{ matrix.variant }} --target=${{ matrix.target }}
+      env:
+        RUSTFLAGS: "-D warnings"
+
+    # this needs QEMU and test-runner setup, TBD
+    # - name: Run Tests
+    #   run: cargo test ${{ matrix.variant }} --target=${{ matrix.target }}
+
+  check_formatting:
+    name: Check Formatting
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+    - uses: actions/checkout@v1
+    - run: rustup toolchain install nightly --profile minimal --component rustfmt
+    - run: rustup default nightly
+    - run: cargo +nightly fmt -- --check
+
+  clippy:
+    name: Clippy
+
+    # Had to duplicate the supported targets list from above
+    # @fixme must be a way to specify it just once?
+    strategy:
+      matrix:
+        target: [
+          aarch64-unknown-none-softfloat
+        ]
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+    - uses: actions/checkout@v1
+    - run: rustup toolchain install nightly --profile minimal --component clippy
+    - run: rustup default nightly
+    - run: rustup target add ${{ matrix.target }}
+    - run: cargo clippy --target=${{ matrix.target }}
