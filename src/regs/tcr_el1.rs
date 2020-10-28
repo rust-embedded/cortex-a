@@ -322,8 +322,8 @@ register_bitfields! {u64,
 pub struct Reg;
 
 impl RegisterReadWrite<u64, TCR_EL1::Register> for Reg {
-    sys_coproc_read_raw!(u64, "TCR_EL1");
-    sys_coproc_write_raw!(u64, "TCR_EL1");
+    sys_coproc_read_raw!(u64, "TCR_EL1", "x");
+    sys_coproc_write_raw!(u64, "TCR_EL1", "x");
 }
 
 pub static TCR_EL1: Reg = Reg {};

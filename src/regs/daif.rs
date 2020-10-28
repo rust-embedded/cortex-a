@@ -68,8 +68,8 @@ register_bitfields! {u64,
 pub struct Reg;
 
 impl RegisterReadWrite<u64, DAIF::Register> for Reg {
-    sys_coproc_read_raw!(u64, "DAIF");
-    sys_coproc_write_raw!(u64, "DAIF");
+    sys_coproc_read_raw!(u64, "DAIF", "x");
+    sys_coproc_write_raw!(u64, "DAIF", "x");
 }
 
 pub static DAIF: Reg = Reg {};

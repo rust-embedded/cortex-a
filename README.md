@@ -10,6 +10,10 @@ Low level access to Cortex-A processors.
 - [x] AArch64
 - [ ] AArch32
 
+## Minimum Supported Rust Version
+
+Requires rustc 1.45.0 or later due to use of the new `asm!()` syntax.
+
 ## Usage
 
 Example from https://github.com/rust-embedded/rust-raspi3-OS-tutorials

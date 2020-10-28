@@ -73,7 +73,7 @@ register_bitfields! {u64,
 pub struct Reg;
 
 impl RegisterReadOnly<u64, ESR_EL1::Register> for Reg {
-    sys_coproc_read_raw!(u64, "ESR_EL1");
+    sys_coproc_read_raw!(u64, "ESR_EL1", "x");
 }
 
 pub static ESR_EL1: Reg = Reg {};

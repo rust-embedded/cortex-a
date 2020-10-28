@@ -13,8 +13,8 @@ use register::cpu::RegisterReadWrite;
 pub struct Reg;
 
 impl RegisterReadWrite<u64, ()> for Reg {
-    read_raw!(u64, "lr");
-    write_raw!(u64, "lr");
+    read_raw!(u64, "lr", "x");
+    write_raw!(u64, "lr", "x");
 }
 
 pub static LR: Reg = Reg {};

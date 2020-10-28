@@ -80,8 +80,8 @@ register_bitfields! {u64,
 pub struct Reg;
 
 impl RegisterReadWrite<u64, SCTLR_EL1::Register> for Reg {
-    sys_coproc_read_raw!(u64, "SCTLR_EL1");
-    sys_coproc_write_raw!(u64, "SCTLR_EL1");
+    sys_coproc_read_raw!(u64, "SCTLR_EL1", "x");
+    sys_coproc_write_raw!(u64, "SCTLR_EL1", "x");
 }
 
 pub static SCTLR_EL1: Reg = Reg {};

@@ -50,8 +50,8 @@ register_bitfields! {u64,
 pub struct Reg;
 
 impl RegisterReadWrite<u64, CNTV_CTL_EL0::Register> for Reg {
-    sys_coproc_read_raw!(u64, "CNTV_CTL_EL0");
-    sys_coproc_write_raw!(u64, "CNTV_CTL_EL0");
+    sys_coproc_read_raw!(u64, "CNTV_CTL_EL0", "x");
+    sys_coproc_write_raw!(u64, "CNTV_CTL_EL0", "x");
 }
 
 pub static CNTV_CTL_EL0: Reg = Reg {};
