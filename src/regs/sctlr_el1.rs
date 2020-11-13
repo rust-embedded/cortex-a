@@ -42,6 +42,37 @@ register_bitfields! {u64,
             Cacheable = 1
         ],
 
+        /// Non-aligned access. This bit controls generation of Alignment faults at EL1 and EL0 under certain conditions.
+        ///
+        /// LDAPR, LDAPRH, LDAPUR, LDAPURH, LDAPURSH, LDAPURSW, LDAR, LDARH, LDLAR, LDLARH,
+        /// STLLR, STLLRH, STLR, STLRH, STLUR, and STLURH will or will not generate an Alignment
+        /// fault if all bytes being accessed are not within a single 16-byte quantity,
+        /// aligned to 16 bytes for accesses.
+        NAA OFFSET(6) NUMBITS(1) [
+            Disable = 0,
+            Enable = 1
+        ],
+
+        /// SP Alignment check enable for EL0.
+        ///
+        /// When set to 1, if a load or store instruction executed at EL0 uses the SP
+        /// as the base address and the SP is not aligned to a 16-byte boundary,
+        /// then a SP alignment fault exception is generated.
+        SA0 OFFSET(4) NUMBITS(1) [
+            Disable = 0,
+            Enable = 1
+        ],
+
+        /// SP Alignment check enable.
+        ///
+        /// When set to 1, if a load or store instruction executed at EL1 uses the SP
+        /// as the base address and the SP is not aligned to a 16-byte boundary,
+        /// then a SP alignment fault exception is generated.
+        SA OFFSET(3) NUMBITS(1) [
+            Disable = 0,
+            Enable = 1
+        ],
+
         /// Cacheability control, for data accesses.
         ///
         /// 0 All data access to Normal memory from EL0 and EL1, and all Normal memory accesses to
@@ -62,6 +93,19 @@ register_bitfields! {u64,
         C OFFSET(2) NUMBITS(1) [
             NonCacheable = 0,
             Cacheable = 1
+        ],
+
+        /// Alignment check enable. This is the enable bit for Alignment fault checking at EL1 and EL0.
+        ///
+        /// Instructions that load or store one or more registers, other than load/store exclusive
+        /// and load-acquire/store-release, will or will not check that the address being accessed
+        /// is aligned to the size of the data element(s) being accessed depending on this flag.
+        ///
+        /// Load/store exclusive and load-acquire/store-release instructions have an alignment check
+        /// regardless of the value of the A bit.
+        A OFFSET(1) NUMBITS(1) [
+            Disable = 0,
+            Enable = 1
         ],
 
         /// MMU enable for EL1 and EL0 stage 1 address translation. Possible values of this bit are:
