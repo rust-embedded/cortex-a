@@ -1,6 +1,6 @@
 [package]
 name = "cortex-a"
-version = "5.0.0"
+version = "5.0.1"
 authors = ["Andre Richter <andre.o.richter@gmail.com>"]
 description = "Low level access to Cortex-A processors"
 homepage = "https://github.com/rust-embedded/cortex-a"
