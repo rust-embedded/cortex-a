@@ -132,9 +132,9 @@ register_bitfields! {u64,
 
         /// Granule size for the TTBR1_EL1.
         ///
-        /// 00 4KiB
-        /// 01 64KiB
-        /// 10 16KiB
+        /// 10 4KiB
+        /// 01 16KiB
+        /// 11 64KiB
         ///
         /// Other values are reserved.
         ///
@@ -146,9 +146,9 @@ register_bitfields! {u64,
         /// It is IMPLEMENTATION DEFINED whether the value read back is the value programmed or the
         /// value that corresponds to the size chosen.
         TG1   OFFSET(30) NUMBITS(2) [
-            KiB_4 = 0b00,
-            KiB_16 = 0b10,
-            KiB_64 = 0b01
+            KiB_4 = 0b10,
+            KiB_16 = 0b01,
+            KiB_64 = 0b11
         ],
 
         /// Shareability attribute for memory associated with translation table walks using
