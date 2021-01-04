@@ -29,13 +29,29 @@ macro_rules! dmb_dsb {
         impl sealed::Dmb for $A {
             #[inline(always)]
             unsafe fn __dmb(&self) {
-                asm!(concat!("DMB ", stringify!($A)), options(nostack))
+                match () {
+                    #[cfg(target_arch = "aarch64")]
+                    () => {
+                        asm!(concat!("DMB ", stringify!($A)), options(nostack))
+                    }
+
+                    #[cfg(not(target_arch = "aarch64"))]
+                    () => unimplemented!(),
+                }
             }
         }
         impl sealed::Dsb for $A {
             #[inline(always)]
             unsafe fn __dsb(&self) {
-                asm!(concat!("DSB ", stringify!($A)), options(nostack))
+                match () {
+                    #[cfg(target_arch = "aarch64")]
+                    () => {
+                        asm!(concat!("DSB ", stringify!($A)), options(nostack))
+                    }
+
+                    #[cfg(not(target_arch = "aarch64"))]
+                    () => unimplemented!(),
+                }
             }
         }
     };
@@ -52,7 +68,15 @@ dmb_dsb!(SY);
 impl sealed::Isb for SY {
     #[inline(always)]
     unsafe fn __isb(&self) {
-        asm!("ISB SY", options(nostack))
+        match () {
+            #[cfg(target_arch = "aarch64")]
+            () => {
+                asm!("ISB SY", options(nostack))
+            }
+
+            #[cfg(not(target_arch = "aarch64"))]
+            () => unimplemented!(),
+        }
     }
 }
 
