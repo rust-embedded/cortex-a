@@ -37,6 +37,24 @@ register_bitfields! {u64,
             AllLowerELsAreAarch32 = 0,
             NextELIsAarch64 = 1
         ],
+        /// Hypervisor Call Enable
+        ///
+        /// 0 The HVC instruction is undefined at all exception levels.
+        /// 1 The HVC instruction is enabled at EL1, EL2, or EL3
+        HCE OFFSET(8) NUMBITS(1) [
+            HvcDisabled = 0,
+            HvcEnabled = 1
+        ],
+
+        /// Secure Monitor call Disable
+        ///
+        /// 0 The SMC instruction is enabled at EL1, EL2, and EL3.
+        /// 1 The SMC instruction is undefined at all exception levels. At EL1, in the Non-secure
+        /// state, the HCR_EL2.TSC bit has priority over this control.
+        SMD OFFSET(7) NUMBITS(1) [
+            SmcEnabled = 0,
+            SmcDisabled = 1
+        ],
 
         /// Non-secure bit.
         /// * 0b0 Indicates that EL0 and EL1 are in Secure state.
