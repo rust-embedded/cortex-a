@@ -14,7 +14,7 @@
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u64,
-    SCR_EL3 [
+    pub SCR_EL3 [
         /// Execution state control for lower Exception levels:
         ///
         /// 0 Lower levels are all AArch32.
