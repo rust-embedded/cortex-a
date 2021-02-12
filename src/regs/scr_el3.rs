@@ -37,6 +37,7 @@ register_bitfields! {u64,
             AllLowerELsAreAarch32 = 0,
             NextELIsAarch64 = 1
         ],
+
         /// Hypervisor Call Enable
         ///
         /// 0 The HVC instruction is undefined at all exception levels.
