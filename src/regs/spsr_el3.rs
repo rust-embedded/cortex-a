@@ -13,7 +13,7 @@
 use register::{cpu::RegisterReadWrite, register_bitfields};
 
 register_bitfields! {u64,
-    SPSR_EL3 [
+    pub SPSR_EL3 [
         /// Negative condition flag.
         ///
         /// Set to the value of the N condition flag on taking an exception to EL3, and copied to
