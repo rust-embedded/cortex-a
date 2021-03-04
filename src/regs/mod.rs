@@ -44,6 +44,7 @@ mod tpidr_el0;
 mod tpidr_el1;
 mod tpidrro_el0;
 mod ttbr0_el1;
+mod ttbr0_el2;
 mod ttbr1_el1;
 mod vbar_el1;
 
@@ -88,5 +89,6 @@ pub use self::tpidr_el0::TPIDR_EL0;
 pub use self::tpidr_el1::TPIDR_EL1;
 pub use self::tpidrro_el0::TPIDRRO_EL0;
 pub use self::ttbr0_el1::TTBR0_EL1;
+pub use self::ttbr0_el2::TTBR0_EL2;
 pub use self::ttbr1_el1::TTBR1_EL1;
 pub use self::vbar_el1::VBAR_EL1;
