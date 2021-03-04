@@ -4,6 +4,7 @@
 //
 // Author(s):
 //   - Andre Richter <andre.o.richter@gmail.com>
+//   - Bradley Landherr <landhb@users.noreply.github.com>
 
 //! Hypervisor Configuration Register - EL2
 //!
@@ -89,7 +90,15 @@ register_bitfields! {u64,
         ///
         /// When HCR_EL2.TGE is 1, the PE ignores the value of this field for all purposes other
         /// than a direct read of this field.
-        SWIO OFFSET(1) NUMBITS(1) []
+        SWIO OFFSET(1) NUMBITS(1) [],
+
+        /// Enables second stage of translation. The possible values are:
+        /// 0    Disables second stage translation. This is the reset value.
+        /// 1    Enables second stage translation for execution in Non-secure EL1 and EL0.
+        VM OFFSET(0) NUMBITS(1) [
+            Disable = 0,
+            Enable = 1
+        ]
     ]
 }
 
