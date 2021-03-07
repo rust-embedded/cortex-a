@@ -4,6 +4,7 @@
 //
 // Author(s):
 //   - Andre Richter <andre.o.richter@gmail.com>
+//   - Bradley Landherr <landhb@users.noreply.github.com>
 
 //! Hypervisor Configuration Register - EL2
 //!
@@ -89,7 +90,26 @@ register_bitfields! {u64,
         ///
         /// When HCR_EL2.TGE is 1, the PE ignores the value of this field for all purposes other
         /// than a direct read of this field.
-        SWIO OFFSET(1) NUMBITS(1) []
+        SWIO OFFSET(1) NUMBITS(1) [],
+
+        /// Virtualization enable. Enables stage 2 address translation for the EL1&0 translation regime,
+        /// when EL2 is enabled in the current Security state. The possible values are:
+        ///
+        /// 0    EL1&0 stage 2 address translation disabled. 
+        /// 1    EL1&0 stage 2 address translation enabled.
+        /// 
+        /// When the value of this bit is 1, data cache invalidate instructions executed at EL1 perform
+        /// a data cache clean and invalidate. For the invalidate by set/way instruction this behavior 
+        /// applies regardless of the value of the HCR_EL2.SWIO bit.
+        ///
+        /// This bit is permitted to be cached in a TLB.
+        ///
+        /// When ARMv8.1-VHE is implemented, and the value of HCR_EL2.{E2H, TGE} is {1, 1}, this
+        /// field behaves as 0 for all purposes other than a direct read of the value of this field.
+        VM OFFSET(0) NUMBITS(1) [
+            Disable = 0,
+            Enable = 1
+        ]
     ]
 }
 
