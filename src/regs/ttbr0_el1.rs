@@ -38,12 +38,12 @@ impl RegisterReadWrite<u64, TTBR0_EL1::Register> for Reg {
 }
 
 impl Reg {
-    #[inline]
+    #[inline(always)]
     pub fn get_baddr(&self) -> u64 {
         self.read(TTBR0_EL1::BADDR) << 1
     }
 
-    #[inline]
+    #[inline(always)]
     pub fn set_baddr(&self, addr: u64) {
         self.write(TTBR0_EL1::BADDR.val(addr >> 1));
     }
