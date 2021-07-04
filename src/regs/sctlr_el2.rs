@@ -10,7 +10,10 @@
 //!
 //! Provides top level control of the system, including its memory system, at EL2.
 
-use register::{cpu::RegisterReadWrite, register_bitfields};
+use tock_registers::{
+    interfaces::{Readable, Writeable},
+    register_bitfields,
+};
 
 register_bitfields! {u64,
     pub SCTLR_EL2 [
@@ -44,7 +47,7 @@ register_bitfields! {u64,
         ///   Non-cacheable memory.
         ///
         /// 1 This control has no effect on the Cacheability of instruction access to Normal memory
-        ///   from EL2 and, when EL2 is enabled in the current Security state and 
+        ///   from EL2 and, when EL2 is enabled in the current Security state and
         ///   HCR_EL2.{E2H, TGE} == {1, 1}, instruction access to Normal memory from EL0.
         ///
         ///   If the value of SCTLR_EL2.M is 0, instruction accesses from stage 1 of the EL2&0
@@ -54,7 +57,7 @@ register_bitfields! {u64,
         /// When EL2 is disabled, and the value of HCR_EL2.{E2H, TGE} is {1, 1}, this bit
         /// has no effect on the PE.
         ///
-        /// On a Warm reset, in a system where the PE resets into EL2, this field resets to 0. 
+        /// On a Warm reset, in a system where the PE resets into EL2, this field resets to 0.
         I OFFSET(12) NUMBITS(1) [
             NonCacheable = 0,
             Cacheable = 1
@@ -73,23 +76,23 @@ register_bitfields! {u64,
         /// Cacheability control, for data accesses.
         ///
         /// 0 The following are Non-cacheable for all levels of data and unified cache:
-        ///   - Data accesses to Normal memory from EL2. 
-        ///   - When HCR_EL2.{E2H, TGE} != {1, 1}, Normal memory accesses to the EL2 translation tables. 
+        ///   - Data accesses to Normal memory from EL2.
+        ///   - When HCR_EL2.{E2H, TGE} != {1, 1}, Normal memory accesses to the EL2 translation tables.
         ///   - When EL2 is enabled in the current Security state and HCR_EL2.{E2H, TGE} == {1, 1}:
-        ///     - Data accesses to Normal memory from EL0. 
-        ///     - Normal memory accesses to the EL2&0 translation tables. 
+        ///     - Data accesses to Normal memory from EL0.
+        ///     - Normal memory accesses to the EL2&0 translation tables.
         ///
         /// 1 This control has no effect on the Cacheability of:
         ///   - Data access to Normal memory from EL2.
-        ///   - When HCR_EL2.{E2H, TGE} != {1, 1}, Normal memory accesses to the EL2 translation tables. 
+        ///   - When HCR_EL2.{E2H, TGE} != {1, 1}, Normal memory accesses to the EL2 translation tables.
         ///   - When EL2 is enabled in the current Security state and HCR_EL2.{E2H, TGE} == {1, 1}:
-        ///     - Data accesses to Normal memory from EL0. 
-        ///     - Normal memory accesses to the EL2&0 translation tables. 
+        ///     - Data accesses to Normal memory from EL0.
+        ///     - Normal memory accesses to the EL2&0 translation tables.
         ///
         /// When EL2 is disabled in the current Security state or HCR_EL2.{E2H, TGE} != {1, 1},
         /// this bit has no effect on the EL1&0 translation regime.
         ///
-        /// On a Warm reset, in a system where the PE resets into EL2, this field resets to 0. 
+        /// On a Warm reset, in a system where the PE resets into EL2, this field resets to 0.
         C OFFSET(2) NUMBITS(1) [
             NonCacheable = 0,
             Cacheable = 1
@@ -117,8 +120,8 @@ register_bitfields! {u64,
         ///
         /// 1 - When HCR_EL2.{E2H, TGE} != {1, 1}, EL2 stage 1 address translation enabled.
         ///   - When HCR_EL2.{E2H, TGE} == {1, 1}, EL2&0 stage 1 address translation enabled.
-        /// 
-        /// On a Warm reset, in a system where the PE resets into EL2, this field resets to 0. 
+        ///
+        /// On a Warm reset, in a system where the PE resets into EL2, this field resets to 0.
         M OFFSET(0) NUMBITS(1) [
             Disable = 0,
             Enable = 1
@@ -128,9 +131,18 @@ register_bitfields! {u64,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u64, SCTLR_EL2::Register> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = SCTLR_EL2::Register;
+
     sys_coproc_read_raw!(u64, "SCTLR_EL2", "x");
+}
+
+impl Writeable for Reg {
+    type T = u64;
+    type R = SCTLR_EL2::Register;
+
     sys_coproc_write_raw!(u64, "SCTLR_EL2", "x");
 }
 
-pub static SCTLR_EL2: Reg = Reg {};
+pub const SCTLR_EL2: Reg = Reg {};

@@ -9,7 +9,10 @@
 //!
 //! Allows the Stack Pointer to be selected between SP_EL0 and SP_ELx.
 
-use register::{cpu::RegisterReadWrite, register_bitfields};
+use tock_registers::{
+    interfaces::{Readable, Writeable},
+    register_bitfields,
+};
 
 register_bitfields! {u64,
     pub SPSel [
@@ -28,10 +31,19 @@ register_bitfields! {u64,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u64, SPSel::Register> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = SPSel::Register;
+
     sys_coproc_read_raw!(u64, "SPSEL", "x");
+}
+
+impl Writeable for Reg {
+    type T = u64;
+    type R = SPSel::Register;
+
     sys_coproc_write_raw!(u64, "SPSEL", "x");
 }
 
 #[allow(non_upper_case_globals)]
-pub static SPSel: Reg = Reg {};
+pub const SPSel: Reg = Reg {};

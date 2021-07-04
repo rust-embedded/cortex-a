@@ -11,7 +11,10 @@
 //! Provides configuration controls for virtualization, including defining
 //! whether various Non-secure operations are trapped to EL2.
 
-use register::{cpu::RegisterReadWrite, register_bitfields};
+use tock_registers::{
+    interfaces::{Readable, Writeable},
+    register_bitfields,
+};
 
 register_bitfields! {u64,
     pub HCR_EL2 [
@@ -95,11 +98,11 @@ register_bitfields! {u64,
         /// Virtualization enable. Enables stage 2 address translation for the EL1&0 translation regime,
         /// when EL2 is enabled in the current Security state. The possible values are:
         ///
-        /// 0    EL1&0 stage 2 address translation disabled. 
+        /// 0    EL1&0 stage 2 address translation disabled.
         /// 1    EL1&0 stage 2 address translation enabled.
-        /// 
+        ///
         /// When the value of this bit is 1, data cache invalidate instructions executed at EL1 perform
-        /// a data cache clean and invalidate. For the invalidate by set/way instruction this behavior 
+        /// a data cache clean and invalidate. For the invalidate by set/way instruction this behavior
         /// applies regardless of the value of the HCR_EL2.SWIO bit.
         ///
         /// This bit is permitted to be cached in a TLB.
@@ -115,9 +118,18 @@ register_bitfields! {u64,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u64, HCR_EL2::Register> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = HCR_EL2::Register;
+
     sys_coproc_read_raw!(u64, "HCR_EL2", "x");
+}
+
+impl Writeable for Reg {
+    type T = u64;
+    type R = HCR_EL2::Register;
+
     sys_coproc_write_raw!(u64, "HCR_EL2", "x");
 }
 
-pub static HCR_EL2: Reg = Reg {};
+pub const HCR_EL2: Reg = Reg {};

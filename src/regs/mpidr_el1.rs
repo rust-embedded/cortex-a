@@ -10,12 +10,15 @@
 //! In a multiprocessor system, provides an additional PE identification mechanism for scheduling
 //! purposes.
 
-use register::cpu::RegisterReadOnly;
+use tock_registers::interfaces::Readable;
 
 pub struct Reg;
 
-impl RegisterReadOnly<u64, ()> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = ();
+
     sys_coproc_read_raw!(u64, "MPIDR_EL1", "x");
 }
 
-pub static MPIDR_EL1: Reg = Reg {};
+pub const MPIDR_EL1: Reg = Reg {};

@@ -10,7 +10,10 @@
 //!
 //! Holds the saved process state when an exception is taken to EL3.
 
-use register::{cpu::RegisterReadWrite, register_bitfields};
+use tock_registers::{
+    interfaces::{Readable, Writeable},
+    register_bitfields,
+};
 
 register_bitfields! {u64,
     pub SPSR_EL3 [
@@ -130,9 +133,18 @@ register_bitfields! {u64,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u64, SPSR_EL3::Register> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = SPSR_EL3::Register;
+
     sys_coproc_read_raw!(u64, "SPSR_EL3", "x");
+}
+
+impl Writeable for Reg {
+    type T = u64;
+    type R = SPSR_EL3::Register;
+
     sys_coproc_write_raw!(u64, "SPSR_EL3", "x");
 }
 
-pub static SPSR_EL3: Reg = Reg {};
+pub const SPSR_EL3: Reg = Reg {};

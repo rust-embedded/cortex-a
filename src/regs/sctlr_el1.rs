@@ -9,7 +9,10 @@
 //!
 //! Provides top level control of the system, including its memory system, at EL1 and EL0.
 
-use register::{cpu::RegisterReadWrite, register_bitfields};
+use tock_registers::{
+    interfaces::{Readable, Writeable},
+    register_bitfields,
+};
 
 register_bitfields! {u64,
     pub SCTLR_EL1 [
@@ -123,9 +126,18 @@ register_bitfields! {u64,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u64, SCTLR_EL1::Register> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = SCTLR_EL1::Register;
+
     sys_coproc_read_raw!(u64, "SCTLR_EL1", "x");
+}
+
+impl Writeable for Reg {
+    type T = u64;
+    type R = SCTLR_EL1::Register;
+
     sys_coproc_write_raw!(u64, "SCTLR_EL1", "x");
 }
 
-pub static SCTLR_EL1: Reg = Reg {};
+pub const SCTLR_EL1: Reg = Reg {};

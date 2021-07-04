@@ -10,7 +10,7 @@
 //! Provides identification information for the processor, including an implementer code for the
 //! device and a device ID number.
 
-use register::{cpu::RegisterReadOnly, register_bitfields};
+use tock_registers::{interfaces::Readable, register_bitfields};
 
 register_bitfields! {u64,
     pub MIDR_EL1 [
@@ -86,8 +86,11 @@ register_bitfields! {u64,
 
 pub struct Reg;
 
-impl RegisterReadOnly<u64, MIDR_EL1::Register> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = MIDR_EL1::Register;
+
     sys_coproc_read_raw!(u64, "MIDR_EL1", "x");
 }
 
-pub static MIDR_EL1: Reg = Reg {};
+pub const MIDR_EL1: Reg = Reg {};

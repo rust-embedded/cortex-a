@@ -10,7 +10,10 @@
 //!
 //! The control register for stage 1 of the EL2, or EL2&0 translation regime.
 
-use register::{cpu::RegisterReadWrite, register_bitfields};
+use tock_registers::{
+    interfaces::{Readable, Writeable},
+    register_bitfields,
+};
 
 register_bitfields! {u64,
     pub TCR_EL2 [
@@ -24,18 +27,18 @@ register_bitfields! {u64,
         /// 1 Top Byte ignored in the address calculation.
         ///
         /// This affects addresses generated in EL2 using AArch64 where the address would be
-        /// translated by tables pointed to by TTBR0_EL2. It has an effect whether the EL2, 
+        /// translated by tables pointed to by TTBR0_EL2. It has an effect whether the EL2,
         /// or EL2&0, translation regime is enabled or not.
         ///
         /// If ARMv8.3-PAuth is implemented and TCR_EL2.TBID1 is 1, then this field only applies to
         /// Data accesses.
         ///
-        /// If the value of TBI is 1, then bits[63:56] of that target address are also set to 0 
+        /// If the value of TBI is 1, then bits[63:56] of that target address are also set to 0
         /// before the address is stored in the PC, in the following cases:
         ///
         /// • A branch or procedure return within EL2.
         /// • An exception taken to EL2.
-        /// • An exception return to EL2. 
+        /// • An exception return to EL2.
         TBI OFFSET(20) NUMBITS(1) [
             Used = 0,
             Ignored = 1
@@ -156,9 +159,18 @@ register_bitfields! {u64,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u64, TCR_EL2::Register> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = TCR_EL2::Register;
+
     sys_coproc_read_raw!(u64, "TCR_EL2", "x");
+}
+
+impl Writeable for Reg {
+    type T = u64;
+    type R = TCR_EL2::Register;
+
     sys_coproc_write_raw!(u64, "TCR_EL2", "x");
 }
 
-pub static TCR_EL2: Reg = Reg {};
+pub const TCR_EL2: Reg = Reg {};

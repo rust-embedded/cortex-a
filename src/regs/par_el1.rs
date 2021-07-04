@@ -10,7 +10,10 @@
 //! Returns the output address (OA) from an Address translation instruction that executed
 //! successfully, or fault information if the instruction did not execute successfully.
 
-use register::{cpu::RegisterReadWrite, register_bitfields};
+use tock_registers::{
+    interfaces::{Readable, Writeable},
+    register_bitfields,
+};
 
 register_bitfields! {u64,
     pub PAR_EL1 [
@@ -43,9 +46,18 @@ register_bitfields! {u64,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u64, PAR_EL1::Register> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = PAR_EL1::Register;
+
     sys_coproc_read_raw!(u64, "PAR_EL1", "x");
+}
+
+impl Writeable for Reg {
+    type T = u64;
+    type R = PAR_EL1::Register;
+
     sys_coproc_write_raw!(u64, "PAR_EL1", "x");
 }
 
-pub static PAR_EL1: Reg = Reg {};
+pub const PAR_EL1: Reg = Reg {};

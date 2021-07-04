@@ -10,7 +10,7 @@
 //!
 //! Holds syndrome information for an exception taken to EL1.
 
-use register::{cpu::RegisterReadOnly, register_bitfields};
+use tock_registers::{interfaces::Readable, register_bitfields};
 
 register_bitfields! {u64,
     pub ESR_EL1 [
@@ -72,8 +72,11 @@ register_bitfields! {u64,
 
 pub struct Reg;
 
-impl RegisterReadOnly<u64, ESR_EL1::Register> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = ESR_EL1::Register;
+
     sys_coproc_read_raw!(u64, "ESR_EL1", "x");
 }
 
-pub static ESR_EL1: Reg = Reg {};
+pub const ESR_EL1: Reg = Reg {};

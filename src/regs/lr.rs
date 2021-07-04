@@ -8,13 +8,22 @@
 
 //! The link register
 
-use register::cpu::RegisterReadWrite;
+use tock_registers::interfaces::{Readable, Writeable};
 
 pub struct Reg;
 
-impl RegisterReadWrite<u64, ()> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = ();
+
     read_raw!(u64, "lr", "x");
+}
+
+impl Writeable for Reg {
+    type T = u64;
+    type R = ();
+
     write_raw!(u64, "lr", "x");
 }
 
-pub static LR: Reg = Reg {};
+pub const LR: Reg = Reg {};

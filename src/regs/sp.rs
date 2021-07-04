@@ -7,13 +7,22 @@
 
 //! The stack pointer
 
-use register::cpu::RegisterReadWrite;
+use tock_registers::interfaces::{Readable, Writeable};
 
 pub struct Reg;
 
-impl RegisterReadWrite<u64, ()> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = ();
+
     read_raw!(u64, "sp", "x");
+}
+
+impl Writeable for Reg {
+    type T = u64;
+    type R = ();
+
     write_raw!(u64, "sp", "x");
 }
 
-pub static SP: Reg = Reg {};
+pub const SP: Reg = Reg {};

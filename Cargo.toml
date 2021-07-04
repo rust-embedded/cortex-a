@@ -11,8 +11,12 @@ categories = ["embedded", "hardware-support", "no-std"]
 license = "MIT/Apache-2.0"
 edition = "2018"
 exclude = [
+        ".github",
+        ".gitignore",
+        ".rustfmt.toml",
+        ".vscode",
         "Makefile"
 ]
 
 [dependencies]
-register = "1.x.x"
+tock-registers = { version = "0.7.x", default-features = false } # Use it as interface-only library.

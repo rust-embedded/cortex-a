@@ -9,7 +9,7 @@
 //!
 //! Holds the current Exception level.
 
-use register::{cpu::RegisterReadOnly, register_bitfields};
+use tock_registers::{interfaces::Readable, register_bitfields};
 
 register_bitfields! {u64,
     pub CurrentEL [
@@ -35,9 +35,12 @@ register_bitfields! {u64,
 
 pub struct Reg;
 
-impl RegisterReadOnly<u64, CurrentEL::Register> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = CurrentEL::Register;
+
     sys_coproc_read_raw!(u64, "CurrentEL", "x");
 }
 
 #[allow(non_upper_case_globals)]
-pub static CurrentEL: Reg = Reg {};
+pub const CurrentEL: Reg = Reg {};

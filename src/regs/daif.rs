@@ -9,7 +9,10 @@
 //!
 //! Allows access to the interrupt mask bits.
 
-use register::{cpu::RegisterReadWrite, register_bitfields};
+use tock_registers::{
+    interfaces::{Readable, Writeable},
+    register_bitfields,
+};
 
 register_bitfields! {u64,
     pub DAIF [
@@ -67,9 +70,18 @@ register_bitfields! {u64,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u64, DAIF::Register> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = DAIF::Register;
+
     sys_coproc_read_raw!(u64, "DAIF", "x");
+}
+
+impl Writeable for Reg {
+    type T = u64;
+    type R = DAIF::Register;
+
     sys_coproc_write_raw!(u64, "DAIF", "x");
 }
 
-pub static DAIF: Reg = Reg {};
+pub const DAIF: Reg = Reg {};

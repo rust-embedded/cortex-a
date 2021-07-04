@@ -12,7 +12,10 @@
 //! Provides the memory attribute encodings corresponding to the possible AttrIndx values in a
 //! Long-descriptor format translation table entry for stage 1 translations at EL2.
 
-use register::{cpu::RegisterReadWrite, register_bitfields};
+use tock_registers::{
+    interfaces::{Readable, Writeable},
+    register_bitfields,
+};
 
 register_bitfields! {u64,
     pub MAIR_EL2 [
@@ -428,9 +431,18 @@ register_bitfields! {u64,
 
 pub struct Reg;
 
-impl RegisterReadWrite<u64, MAIR_EL2::Register> for Reg {
+impl Readable for Reg {
+    type T = u64;
+    type R = MAIR_EL2::Register;
+
     sys_coproc_read_raw!(u64, "MAIR_EL2", "x");
+}
+
+impl Writeable for Reg {
+    type T = u64;
+    type R = MAIR_EL2::Register;
+
     sys_coproc_write_raw!(u64, "MAIR_EL2", "x");
 }
 
-pub static MAIR_EL2: Reg = Reg {};
+pub const MAIR_EL2: Reg = Reg {};

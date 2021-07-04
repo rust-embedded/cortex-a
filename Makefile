@@ -8,10 +8,6 @@ clippy:
 	cargo clippy --target $(TARGET)
 	cargo clippy
 
-check:
-	cargo check --target $(TARGET)
-	cargo check
-
 fmt:
 	cargo fmt
 
