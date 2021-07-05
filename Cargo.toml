@@ -15,6 +15,7 @@ exclude = [
         ".gitignore",
         ".rustfmt.toml",
         ".vscode",
+        ".editorconfig",
         "Makefile"
 ]
 
