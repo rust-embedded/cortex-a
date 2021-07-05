@@ -6,7 +6,9 @@
 //   - Jorge Aparicio
 //   - Andre Richter <andre.o.richter@gmail.com>
 
-//! Miscellaneous assembly instructions
+//! Wrappers around ARMv8-A instructions.
+
+pub mod barrier;
 
 /// The classic no-op
 #[inline(always)]
@@ -22,7 +24,7 @@ pub fn nop() {
 
 /// Wait For Interrupt
 ///
-/// For more details on wfi, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
+/// For more details on wfi, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html).
 #[inline(always)]
 pub fn wfi() {
     #[cfg(target_arch = "aarch64")]
@@ -36,7 +38,7 @@ pub fn wfi() {
 
 /// Wait For Event
 ///
-/// For more details of wfe - sev pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
+/// For more details of wfe - sev pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html).
 #[inline(always)]
 pub fn wfe() {
     #[cfg(target_arch = "aarch64")]
@@ -52,7 +54,7 @@ pub fn wfe() {
 ///
 /// SEV causes an event to be signaled to the local core within a multiprocessor system.
 ///
-/// For more details of wfe - sev/sevl pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
+/// For more details of wfe - sev/sevl pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html).
 #[inline(always)]
 pub fn sevl() {
     #[cfg(target_arch = "aarch64")]
@@ -68,7 +70,7 @@ pub fn sevl() {
 ///
 /// SEV causes an event to be signaled to all cores within a multiprocessor system.
 ///
-/// For more details of wfe - sev pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html)
+/// For more details of wfe - sev pair, refer to [here](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0802a/CIHEGBBF.html).
 #[inline(always)]
 pub fn sev() {
     #[cfg(target_arch = "aarch64")]

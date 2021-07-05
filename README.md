@@ -5,21 +5,53 @@
 
 Low level access to Cortex-A processors.
 
-## Currently Supported Architectures
+## Currently Supported Execution States
 
 - [x] AArch64
 - [ ] AArch32
 
 ## Minimum Supported Rust Version
 
-Requires rustc 1.45.0 or later due to use of the new `asm!()` syntax.
+Requires a recent nightly of Rust.
 
 ## Usage
 
-Example from https://github.com/rust-embedded/rust-raspi3-OS-tutorials
+Please note that for using this crate's [register definitions](src/registers) (as provided by
+`cortex_a::registers::*`), you need to also include
+[`tock-registers`](https://crates.io/crates/tock-registers) in your project. This is because the
+`interface` traits provided by `tock-registers` are implemented by this crate. You should include
+the same version of `tock-registers` as is being used by this crate to ensure sane
+interoperatbility.
+
+For example, in the following snippet, `X.Y.Z` should be the same version of `tock-registers` that
+is mentioned in `cortex-a`'s [`Cargo.toml`](Cargo.toml).
+
+```toml
+[package]
+name = "Your embedded project"
+
+# Some parts omitted for brevity.
+
+[dependencies]
+tock-registers = "X.Y.Z"
+cortex-a = "A.B.C"       # <-- Includes tock-registers itself.
+```
+
+### Example
+
+Check out https://github.com/rust-embedded/rust-raspberrypi-OS-tutorials for usage examples. Listed
+below is a snippet of `rust-raspberrypi-OS-tutorials`'s early boot code.
 
 ```rust
-unsafe fn el2_to_el1_transition() -> ! {
+use cortex_a::{asm, registers::*};
+use tock_registers::interfaces::Writeable; // <-- Trait needed to use `write()` and `set()`.
+
+// Some parts omitted for brevity.
+
+unsafe fn prepare_el2_to_el1_transition(
+    virt_boot_core_stack_end_exclusive_addr: u64,
+    virt_kernel_init_addr: u64,
+) {
     // Enable timer counter registers for EL1.
     CNTHCTL_EL2.write(CNTHCTL_EL2::EL1PCEN::SET + CNTHCTL_EL2::EL1PCTEN::SET);
 

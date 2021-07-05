@@ -1,6 +1,6 @@
 [package]
 name = "cortex-a"
-version = "5.1.6"
+version = "6.0.0"
 authors = ["Andre Richter <andre.o.richter@gmail.com>"]
 description = "Low level access to Cortex-A processors"
 homepage = "https://github.com/rust-embedded/cortex-a"
@@ -11,8 +11,13 @@ categories = ["embedded", "hardware-support", "no-std"]
 license = "MIT/Apache-2.0"
 edition = "2018"
 exclude = [
+        ".github",
+        ".gitignore",
+        ".rustfmt.toml",
+        ".vscode",
+        ".editorconfig",
         "Makefile"
 ]
 
 [dependencies]
-register = "1.x.x"
+tock-registers = { version = "0.7.x", default-features = false } # Use it as interface-only library.
