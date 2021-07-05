@@ -18,8 +18,8 @@
 //!
 //! ## Usage
 //!
-//! Please note that for using this crate's [register definitions](src/regs) (as provided by
-//! `cortex_a::regs::*`), you need to also include
+//! Please note that for using this crate's [register definitions](src/registers) (as provided by
+//! `cortex_a::registers::*`), you need to also include
 //! [`tock-registers`](https://crates.io/crates/tock-registers) in your project. This is because the
 //! `interface` traits provided by `tock-registers` are implemented by this crate. You should
 //! include the same version of `tock-registers` as is being used by this crate to ensure sane
@@ -45,7 +45,7 @@
 //! Listed below is a snippet of `rust-raspberrypi-OS-tutorials`'s early boot code.
 //!
 //! ```rust
-//! use cortex_a::{asm, regs::*};
+//! use cortex_a::{asm, registers::*};
 //! use tock_registers::interfaces::Writeable; // <-- Trait needed to use `write()` and `set()`.
 //!
 //! // Some parts omitted for brevity.
@@ -86,4 +86,4 @@
 
 pub mod asm;
 pub mod barrier;
-pub mod regs;
+pub mod registers;
