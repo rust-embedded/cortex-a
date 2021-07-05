@@ -85,5 +85,4 @@
 #![no_std]
 
 pub mod asm;
-pub mod barrier;
 pub mod registers;

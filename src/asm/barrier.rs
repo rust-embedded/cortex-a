@@ -5,10 +5,7 @@
 // Author(s):
 //   - Andre Richter <andre.o.richter@gmail.com>
 
-// Borrow implementations from the pending upstream ACLE implementation until it is merged.
-// Afterwards, we'll probably just reexport them, hoping that the API doesn't change.
-//
-// https://github.com/rust-lang-nursery/stdsimd/pull/557
+//! Barrier functions.
 
 mod sealed {
     pub trait Dmb {
