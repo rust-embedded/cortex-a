@@ -16,6 +16,168 @@ use tock_registers::{
 
 register_bitfields! {u64,
     pub SCTLR_EL1 [
+        /// Traps EL0 execution of cache maintenance instructions to EL1, from AArch64 state only.
+        ///
+        /// 0 Any attempt to execute a DC CVAU, DC CIVAC, DC CVAC, DC CVAP, or IC IVAU
+        ///   instruction at EL0 using AArch64 is trapped to EL1.
+        /// 1 This control does not cause any instructions to be trapped.
+        ///
+        /// When ARMv8.1-VHE is implemented, and the value of HCR_EL2.{E2H, TGE} is {1, 1}, this bit
+        /// has no effect on execution at EL0.
+        ///
+        /// If the Point of Coherency is before any level of data cache, it is IMPLEMENTATION DEFINED whether
+        /// the execution of any data or unified cache clean, or clean and invalidate instruction that operates by
+        /// VA to the point of coherency can be trapped when the value of this control is 1.
+        ///
+        /// If the Point of Unification is before any level of data cache, it is IMPLEMENTATION DEFINED whether
+        /// the execution of any data or unified cache clean by VA to the point of unification instruction can be
+        /// trapped when the value of this control is 1.
+        ///
+        /// If the Point of Unification is before any level of instruction cache, it is IMPLEMENTATION DEFINED
+        /// whether the execution of any instruction cache invalidate by VA to the point of unification
+        /// instruction can be trapped when the value of this control is 1.
+        UCI OFFSET(26) NUMBITS(1) [
+            Trap = 0,
+            DontTrap = 1,
+        ],
+
+        /// Endianness of data accesses at EL1, and stage 1 translation table walks in the EL1&0 translation regime.
+        ///
+        /// 0 Explicit data accesses at EL1, and stage 1 translation table walks in the EL1&0
+        ///   translation regime are little-endian.
+        /// 1 Explicit data accesses at EL1, and stage 1 translation table walks in the EL1&0
+        ///   translation regime are big-endian.
+        ///
+        /// If an implementation does not provide Big-endian support at Exception Levels higher than EL0, this
+        /// bit is RES 0.
+        ///
+        /// If an implementation does not provide Little-endian support at Exception Levels higher than EL0,
+        /// this bit is RES 1.
+        ///
+        /// The EE bit is permitted to be cached in a TLB.
+        ///
+        /// When ARMv8.1-VHE is implemented, and the value of HCR_EL2.{E2H, TGE} is {1, 1}, this bit
+        /// has no effect on the PE.
+        EE OFFSET(25) NUMBITS(1) [
+            LittleEndian = 0,
+            BigEndian = 1,
+        ],
+
+        /// Endianness of data accesses at EL0.
+        ///
+        /// 0 Explicit data accesses at EL0 are little-endian.
+        ///
+        /// 1 Explicit data accesses at EL0 are big-endian.
+        ///
+        /// If an implementation only supports Little-endian accesses at EL0 then this bit is RES 0. This option
+        /// is not permitted when SCTLR_EL1.EE is RES 1.
+        ///
+        /// If an implementation only supports Big-endian accesses at EL0 then this bit is RES 1. This option is
+        /// not permitted when SCTLR_EL1.EE is RES 0.
+        ///
+        /// This bit has no effect on the endianness of LDTR , LDTRH , LDTRSH , LDTRSW , STTR , and STTRH instructions
+        /// executed at EL1.
+        ///
+        /// When ARMv8.1-VHE is implemented, and the value of HCR_EL2.{E2H, TGE} is {1, 1}, this bit
+        /// has no effect on execution at EL0.
+        E0E OFFSET(24) NUMBITS(1) [
+            LittleEndian = 0,
+            BigEndian = 1,
+        ],
+
+        /// Write permission implies XN (Execute-never). For the EL1&0 translation regime, this bit can force
+        /// all memory regions that are writable to be treated as XN.
+        ///
+        /// 0 This control has no effect on memory access permissions.
+        ///
+        /// 1 Any region that is writable in the EL1&0 translation regime is forced to XN for accesses
+        ///   from software executing at EL1 or EL0.
+        ///
+        /// The WXN bit is permitted to be cached in a TLB.
+        ///
+        /// When ARMv8.1-VHE is implemented, and the value of HCR_EL2.{E2H, TGE} is {1, 1}, this bit
+        /// has no effect on the PE.
+        WXN OFFSET(19) NUMBITS(1) [
+            Disable = 0,
+            Enable = 1,
+        ],
+
+        /// Traps EL0 execution of WFE instructions to EL1, from both Execution states.
+        ///
+        /// 0 Any attempt to execute a WFE instruction at EL0 is trapped to EL1, if the instruction
+        ///   would otherwise have caused the PE to enter a low-power state.
+        ///
+        /// 1 This control does not cause any instructions to be trapped.
+        ///
+        /// In AArch32 state, the attempted execution of a conditional WFE instruction is only trapped if the
+        /// instruction passes its condition code check.
+        ///
+        /// **Note:**
+        ///
+        /// Since a WFE or WFI can complete at any time, even without a Wakeup event, the traps on WFE of
+        /// WFI are not guaranteed to be taken, even if the WFE or WFI is executed when there is no Wakeup
+        /// event. The only guarantee is that if the instruction does not complete in finite time in the
+        /// absence of a Wakeup event, the trap will be taken.
+        ///
+        /// When ARMv8.1-VHE is implemented, and the value of HCR_EL2.{E2H, TGE} is {1, 1}, this bit
+        /// has no effect on execution at EL0.
+        NTWE OFFSET(18) NUMBITS(1) [
+            Trap = 0,
+            DontTrap = 1,
+        ],
+
+        /// Traps EL0 executions of WFI instructions to EL1, from both execution states:
+        ///
+        /// 0 Any attempt to execute a WFI instruction at EL0 is trapped EL1, if the instruction would
+        ///   otherwise have caused the PE to enter a low-power state.
+        ///
+        /// 1 This control does not cause any instructions to be trapped.
+        ///
+        /// In AArch32 state, the attempted execution of a conditional WFI instruction is only trapped if the
+        /// instruction passes its condition code check.
+        ///
+        /// **Note:**
+        ///
+        /// Since a WFE or WFI can complete at any time, even without a Wakeup event, the traps on WFE of
+        /// WFI are not guaranteed to be taken, even if the WFE or WFI is executed when there is no Wakeup
+        /// event. The only guarantee is that if the instruction does not complete in finite time in the
+        /// absence of a Wakeup event, the trap will be taken.
+        ///
+        /// When ARMv8.1-VHE is implemented, and the value of HCR_EL2.{E2H, TGE} is {1, 1}, this bit
+        /// has no effect on execution at EL0.
+        NTWI OFFSET(16) NUMBITS(1) [
+            Trap = 0,
+            DontTrap = 1,
+        ],
+
+        /// Traps EL0 accesses to the CTR_EL0 to EL1, from AArch64 state only.
+        ///
+        /// 0 Accesses to the CTR_EL0 from EL0 using AArch64 are trapped to EL1.
+        ///
+        /// 1 This control does not cause any instructions to be trapped.
+        ///
+        /// When ARMv8.1-VHE is implemented, and the value of HCR_EL2.{E2H, TGE} is {1, 1}, this bit
+        /// has no effect on execution at EL0.
+        UCT OFFSET(15) NUMBITS(1) [
+            Trap = 0,
+            DontTrap = 1,
+        ],
+
+        /// Traps EL0 execution of DC ZVA instructions to EL1, from AArch64 state only.
+        ///
+        /// 0 Any attempt to execute a DC ZVA instruction at EL0 using AArch64 is trapped to EL1.
+        ///   Reading DCZID_EL0.DZP from EL0 returns 1, indicating that DC ZVA instructions
+        ///   are not supported.
+        ///
+        /// 1 This control does not cause any instructions to be trapped.
+        ///
+        /// When ARMv8.1-VHE is implemented, and the value of HCR_EL2.{E2H, TGE} is {1, 1}, this bit
+        /// has no effect on execution at EL0.
+        DZE OFFSET(14) NUMBITS(1) [
+            Trap = 0,
+            DontTrap = 1,
+        ],
+
         /// Instruction access Cacheability control, for accesses at EL0 and
         /// EL1:
         ///
@@ -43,6 +205,21 @@ register_bitfields! {u64,
         I OFFSET(12) NUMBITS(1) [
             NonCacheable = 0,
             Cacheable = 1
+        ],
+
+        /// User Mask Access. Traps EL0 execution of MSR and MRS instructions that access the
+        /// PSTATE.{D, A, I, F} masks to EL1, from AArch64 state only.
+        ///
+        /// 0 Any attempt at EL0 using AArch64 to execute an MRS , MSR(register) , or MSR(immediate)
+        ///   instruction that accesses the [`DAIF`](module@super::super::DAIF) is trapped to EL1.
+        ///
+        /// 1 This control does not cause any instructions to be trapped.
+        ///
+        /// When ARMv8.1-VHE is implemented, and the value of HCR_EL2.{E2H, TGE} is {1, 1}, this bit
+        /// has no effect on execution at EL0.
+        UMA OFFSET(9) NUMBITS(1) [
+            Trap = 0,
+            DontTrap = 1,
         ],
 
         /// Non-aligned access. This bit controls generation of Alignment faults at EL1 and EL0 under certain conditions.
