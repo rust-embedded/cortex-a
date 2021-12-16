@@ -15,7 +15,7 @@ pub mod barrier;
 pub fn nop() {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        asm!("nop", options(nomem, nostack))
+        core::arch::asm!("nop", options(nomem, nostack))
     }
 
     #[cfg(not(target_arch = "aarch64"))]
@@ -29,7 +29,7 @@ pub fn nop() {
 pub fn wfi() {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        asm!("wfi", options(nomem, nostack))
+        core::arch::asm!("wfi", options(nomem, nostack))
     }
 
     #[cfg(not(target_arch = "aarch64"))]
@@ -43,7 +43,7 @@ pub fn wfi() {
 pub fn wfe() {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        asm!("wfe", options(nomem, nostack))
+        core::arch::asm!("wfe", options(nomem, nostack))
     }
 
     #[cfg(not(target_arch = "aarch64"))]
@@ -59,7 +59,7 @@ pub fn wfe() {
 pub fn sevl() {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        asm!("sevl", options(nomem, nostack))
+        core::arch::asm!("sevl", options(nomem, nostack))
     }
 
     #[cfg(not(target_arch = "aarch64"))]
@@ -75,7 +75,7 @@ pub fn sevl() {
 pub fn sev() {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        asm!("sev", options(nomem, nostack))
+        core::arch::asm!("sev", options(nomem, nostack))
     }
 
     #[cfg(not(target_arch = "aarch64"))]
@@ -89,7 +89,7 @@ pub fn sev() {
 pub fn eret() -> ! {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        asm!("eret", options(nomem, nostack));
+        core::arch::asm!("eret", options(nomem, nostack));
         core::intrinsics::unreachable()
     }
 
@@ -104,7 +104,7 @@ pub fn eret() -> ! {
 pub fn ret() -> ! {
     #[cfg(target_arch = "aarch64")]
     unsafe {
-        asm!("ret", options(nomem, nostack));
+        core::arch::asm!("ret", options(nomem, nostack));
         core::intrinsics::unreachable()
     }
 

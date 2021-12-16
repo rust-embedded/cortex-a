@@ -29,7 +29,7 @@ macro_rules! dmb_dsb {
                 match () {
                     #[cfg(target_arch = "aarch64")]
                     () => {
-                        asm!(concat!("DMB ", stringify!($A)), options(nostack))
+                        core::arch::asm!(concat!("DMB ", stringify!($A)), options(nostack))
                     }
 
                     #[cfg(not(target_arch = "aarch64"))]
@@ -43,7 +43,7 @@ macro_rules! dmb_dsb {
                 match () {
                     #[cfg(target_arch = "aarch64")]
                     () => {
-                        asm!(concat!("DSB ", stringify!($A)), options(nostack))
+                        core::arch::asm!(concat!("DSB ", stringify!($A)), options(nostack))
                     }
 
                     #[cfg(not(target_arch = "aarch64"))]
@@ -68,7 +68,7 @@ impl sealed::Isb for SY {
         match () {
             #[cfg(target_arch = "aarch64")]
             () => {
-                asm!("ISB SY", options(nostack))
+                core::arch::asm!("ISB SY", options(nostack))
             }
 
             #[cfg(not(target_arch = "aarch64"))]
