@@ -79,7 +79,6 @@
 //! ARMv8, for ARMv8-A architecture
 //! profile](https://static.docs.arm.com/ddi0487/ca/DDI0487C_a_armv8_arm.pdf?_ga=2.266626254.1122218691.1534883460-1326731866.1530967873).
 
-#![feature(asm)]
 #![feature(core_intrinsics)]
 #![feature(custom_inner_attributes)]
 #![no_std]
