@@ -5,6 +5,7 @@
 // Author(s):
 //   - Andre Richter <andre.o.richter@gmail.com>
 //   - Bradley Landherr <landhb@users.noreply.github.com>
+//   - Javier Alvarez <javier.alvarez@allthingsembedded.com>
 
 //! Hypervisor Configuration Register - EL2
 //!
@@ -18,6 +19,53 @@ use tock_registers::{
 
 register_bitfields! {u64,
     pub HCR_EL2 [
+        ///
+        /// Controls the use of instructions related to Pointer Authentication:
+        ///
+        ///   - In EL0, when HCR_EL2.TGE==0 or HCR_EL2.E2H==0, and the associated SCTLR_EL1.En<N><M>==1.
+        ///   - In EL1, the associated SCTLR_EL1.En<N><M>==1.
+        ///
+        /// Traps are reported using EC syndrome value 0x09. The Pointer Authentication instructions
+        /// trapped are:
+        ///
+        ///     AUTDA, AUTDB, AUTDZA, AUTDZB, AUTIA, AUTIA1716, AUTIASP, AUTIAZ, AUTIB, AUTIB1716,
+        ///     AUTIBSP, AUTIBZ, AUTIZA, AUTIZB, PACGA, PACDA, PACDB, PACDZA, PACDZB, PACIA,
+        ///     PACIA1716, PACIASP, PACIAZ, PACIB, PACIB1716, PACIBSP, PACIBZ, PACIZA, PACIZB.
+        ///     RETAA, RETAB, BRAA, BRAB, BLRAA, BLRAB, BRAAZ, BRABZ, BLRAAZ, BLRABZ.
+        ///     ERETAA, ERETAB, LDRAA, and LDRAB.
+        API   OFFSET(41) NUMBITS(1) [
+            EnableTrapPointerAuthInstToEl2 = 0,
+            DisableTrapPointerAuthInstToEl2 = 1
+        ],
+        ///
+        /// Trap registers holding "key" values for Pointer Authentication. Traps accesses to the
+        /// following registers from EL1 to EL2, when EL2 is enabled in the current Security state,
+        /// reported using EC syndrome value 0x18:
+        ///
+        ///     APIAKeyLo_EL1, APIAKeyHi_EL1, APIBKeyLo_EL1, APIBKeyHi_EL1, APDAKeyLo_EL1,
+        ///     APDAKeyHi_EL1, APDBKeyLo_EL1, APDBKeyHi_EL1, APGAKeyLo_EL1, and APGAKeyHi_EL1.
+        ///
+        APK   OFFSET(40) NUMBITS(1) [
+            EnableTrapPointerAuthKeyRegsToEl2 = 0,
+            DisableTrapPointerAuthKeyRegsToEl2 = 1,
+        ],
+
+        /// Route synchronous External abort exceptions to EL2.
+        ///   if 0: This control does not cause exceptions to be routed from EL0 and EL1 to EL2.
+        ///   if 1: Route synchronous External abort exceptions from EL0 and EL1 to EL2, when EL2 is
+        ///         enabled in the current Security state, if not routed to EL3.
+        TEA   OFFSET(37) NUMBITS(1) [
+            DisableTrapSyncExtAborts = 0,
+            EnableTrapSyncExtAborts = 1,
+        ],
+
+        /// EL2 Host. Enables a configuration where a Host Operating System is running in EL2, and
+        /// the Host Operating System's applications are running in EL0.
+        E2H   OFFSET(34) NUMBITS(1) [
+            DisableOsAtEl2 = 0,
+            EnableOsAtEl2 = 1
+        ],
+
         /// Execution state control for lower Exception levels:
         ///
         /// 0 Lower levels are all AArch32.
@@ -37,6 +85,40 @@ register_bitfields! {u64,
         RW   OFFSET(31) NUMBITS(1) [
             AllLowerELsAreAarch32 = 0,
             EL1IsAarch64 = 1
+        ],
+
+        /// Trap General Exceptions, from EL0.
+        ///
+        /// If enabled:
+        ///   - When EL2 is not enabled in the current Security state, this control has no effect on
+        ///     execution at EL0.
+        ///
+        ///   - When EL2 is enabled in the current Security state, in all cases:
+        ///
+        ///       - All exceptions that would be routed to EL1 are routed to EL2.
+        ///       - If EL1 is using AArch64, the SCTLR_EL1.M field is treated as being 0 for all
+        ///         purposes other than returning the result of a direct read of SCTLR_EL1.
+        ///       - If EL1 is using AArch32, the SCTLR.M field is treated as being 0 for all
+        ///         purposes other than returning the result of a direct read of SCTLR.
+        ///       - All virtual interrupts are disabled.
+        ///       - Any IMPLEMENTATION DEFINED mechanisms for signaling virtual interrupts are
+        ///         disabled.
+        ///       - An exception return to EL1 is treated as an illegal exception return.
+        ///       - The MDCR_EL2.{TDRA, TDOSA, TDA, TDE} fields are treated as being 1 for all
+        ///         purposes other than returning the result of a direct read of MDCR_EL2.
+        ///
+        ///   - In addition, when EL2 is enabled in the current Security state, if:
+        ///
+        ///       - HCR_EL2.E2H is 0, the Effective values of the HCR_EL2.{FMO, IMO, AMO} fields
+        ///         are 1.
+        ///       - HCR_EL2.E2H is 1, the Effective values of the HCR_EL2.{FMO, IMO, AMO} fields
+        ///         are 0.
+        ///
+        ///   - For further information on the behavior of this bit when E2H is 1, see 'Behavior of
+        ///     HCR_EL2.E2H'.
+        TGE   OFFSET(27) NUMBITS(1) [
+            DisableTrapGeneralExceptions = 0,
+            EnableTrapGeneralExceptions = 1,
         ],
 
         /// Default Cacheability.
@@ -68,6 +150,72 @@ register_bitfields! {u64,
         /// When ARMv8.1-VHE is implemented, and the value of HCR_EL2.{E2H, TGE} is {1, 1}, this
         /// field behaves as 0 for all purposes other than a direct read of the value of this field.
         DC   OFFSET(12) NUMBITS(1) [],
+
+        /// Physical SError interrupt routing.
+        ///   - If bit is 1 when executing at any Exception level, and EL2 is enabled in the current
+        ///     Security state:
+        ///     - Physical SError interrupts are taken to EL2, unless they are routed to EL3.
+        ///     - When the value of HCR_EL2.TGE is 0, then virtual SError interrupts are enabled.
+        AMO   OFFSET(5) NUMBITS(1) [],
+
+        /// Physical IRQ Routing.
+        ///
+        /// If this bit is 0:
+        ///   - When executing at Exception levels below EL2, and EL2 is enabled in the current
+        ///     Security state:
+        ///     - When the value of HCR_EL2.TGE is 0, Physical IRQ interrupts are not taken to EL2.
+        ///     - When the value of HCR_EL2.TGE is 1, Physical IRQ interrupts are taken to EL2
+        ///       unless they are routed to EL3.
+        ///     - Virtual IRQ interrupts are disabled.
+        ///
+        /// If this bit is 1:
+        ///   - When executing at any Exception level, and EL2 is enabled in the current Security
+        ///     state:
+        ///     - Physical IRQ interrupts are taken to EL2, unless they are routed to EL3.
+        ///     - When the value of HCR_EL2.TGE is 0, then Virtual IRQ interrupts are enabled.
+        ///
+        /// If EL2 is enabled in the current Security state, and the value of HCR_EL2.TGE is 1:
+        ///   - Regardless of the value of the IMO bit, physical IRQ Interrupts target EL2 unless
+        ///     they are routed to EL3.
+        ///   - When FEAT_VHE is not implemented, or if HCR_EL2.E2H is 0, this field behaves as 1
+        ///     for all purposes other than a direct read of the value of this bit.
+        ///   - When FEAT_VHE is implemented and HCR_EL2.E2H is 1, this field behaves as 0 for all
+        ///     purposes other than a direct read of the value of this bit.
+        ///
+        /// For more information, see 'Asynchronous exception routing'.
+        IMO   OFFSET(4) NUMBITS(1) [
+            DisableVirtualIRQ = 0,
+            EnableVirtualIRQ = 1,
+        ],
+
+        /// Physical FIQ Routing.
+        /// If this bit is 0:
+        ///   - When executing at Exception levels below EL2, and EL2 is enabled in the current
+        ///     Security state:
+        ///     - When the value of HCR_EL2.TGE is 0, Physical FIQ interrupts are not taken to EL2.
+        ///     - When the value of HCR_EL2.TGE is 1, Physical FIQ interrupts are taken to EL2
+        ///       unless they are routed to EL3.
+        ///     - Virtual FIQ interrupts are disabled.
+        ///
+        /// If this bit is 1:
+        ///   - When executing at any Exception level, and EL2 is enabled in the current Security
+        ///     state:
+        ///     - Physical FIQ interrupts are taken to EL2, unless they are routed to EL3.
+        ///     - When HCR_EL2.TGE is 0, then Virtual FIQ interrupts are enabled.
+        ///
+        /// If EL2 is enabled in the current Security state and the value of HCR_EL2.TGE is 1:
+        ///   - Regardless of the value of the FMO bit, physical FIQ Interrupts target EL2 unless
+        ///     they are routed to EL3.
+        ///   - When FEAT_VHE is not implemented, or if HCR_EL2.E2H is 0, this field behaves as 1
+        ///     for all purposes other than a direct read of the value of this bit.
+        ///   - When FEAT_VHE is implemented and HCR_EL2.E2H is 1, this field behaves as 0 for all
+        ///     purposes other than a direct read of the value of this bit.
+        ///
+        /// For more information, see 'Asynchronous exception routing'.
+        FMO   OFFSET(3) NUMBITS(1) [
+            DisableVirtualFIQ = 0,
+            EnableVirtualFIQ = 1,
+        ],
 
         /// Set/Way Invalidation Override. Causes Non-secure EL1 execution of the data cache
         /// invalidate by set/way instructions to perform a data cache clean and invalidate by
