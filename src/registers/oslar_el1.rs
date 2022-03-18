@@ -6,7 +6,7 @@
 //   - Andre Richter <andre.o.richter@gmail.com>
 //   - Javier Alvarez <javier.alvarez@allthingsembedded.net>
 
-//! OS Lock Access Register
+//! OS Lock Access Register - EL1
 //!
 //! Used to lock or unlock the OS Lock.
 //!

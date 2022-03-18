@@ -19,7 +19,6 @@ use tock_registers::{
 
 register_bitfields! {u64,
     pub HCR_EL2 [
-        ///
         /// Controls the use of instructions related to Pointer Authentication:
         ///
         ///   - In EL0, when HCR_EL2.TGE==0 or HCR_EL2.E2H==0, and the associated SCTLR_EL1.En<N><M>==1.
@@ -37,14 +36,13 @@ register_bitfields! {u64,
             EnableTrapPointerAuthInstToEl2 = 0,
             DisableTrapPointerAuthInstToEl2 = 1
         ],
-        ///
+
         /// Trap registers holding "key" values for Pointer Authentication. Traps accesses to the
         /// following registers from EL1 to EL2, when EL2 is enabled in the current Security state,
         /// reported using EC syndrome value 0x18:
         ///
         ///     APIAKeyLo_EL1, APIAKeyHi_EL1, APIBKeyLo_EL1, APIBKeyHi_EL1, APDAKeyLo_EL1,
         ///     APDAKeyHi_EL1, APDBKeyLo_EL1, APDBKeyHi_EL1, APGAKeyLo_EL1, and APGAKeyHi_EL1.
-        ///
         APK   OFFSET(40) NUMBITS(1) [
             EnableTrapPointerAuthKeyRegsToEl2 = 0,
             DisableTrapPointerAuthKeyRegsToEl2 = 1,
@@ -55,8 +53,8 @@ register_bitfields! {u64,
         ///   if 1: Route synchronous External abort exceptions from EL0 and EL1 to EL2, when EL2 is
         ///         enabled in the current Security state, if not routed to EL3.
         TEA   OFFSET(37) NUMBITS(1) [
-            DisableTrapSyncExtAborts = 0,
-            EnableTrapSyncExtAborts = 1,
+            DisableTrapSyncExtAbortsToEl2 = 0,
+            EnableTrapSyncExtAbortsToEl2 = 1,
         ],
 
         /// EL2 Host. Enables a configuration where a Host Operating System is running in EL2, and
@@ -117,8 +115,8 @@ register_bitfields! {u64,
         ///   - For further information on the behavior of this bit when E2H is 1, see 'Behavior of
         ///     HCR_EL2.E2H'.
         TGE   OFFSET(27) NUMBITS(1) [
-            DisableTrapGeneralExceptions = 0,
-            EnableTrapGeneralExceptions = 1,
+            DisableTrapGeneralExceptionsToEl2 = 0,
+            EnableTrapGeneralExceptionsToEl2 = 1,
         ],
 
         /// Default Cacheability.
