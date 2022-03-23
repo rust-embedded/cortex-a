@@ -41,8 +41,10 @@
 //!
 //! ### Example
 //!
-//! Check out https://github.com/rust-embedded/rust-raspberrypi-OS-tutorials for usage examples.
-//! Listed below is a snippet of `rust-raspberrypi-OS-tutorials`'s early boot code.
+//! Check out
+//! [rust-raspberrypi-OS-tutorials](https://github.com/rust-embedded/rust-raspberrypi-OS-tutorials)
+//! for usage examples. Listed below is a snippet of `rust-raspberrypi-OS-tutorials`'s early boot
+//! code.
 //!
 //! ```rust
 //! use cortex_a::{asm, registers::*};
