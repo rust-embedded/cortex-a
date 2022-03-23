@@ -19,5 +19,9 @@ exclude = [
         "Makefile"
 ]
 
+[features]
+default = ["nightly"]
+nightly = ["tock-registers"]
+
 [dependencies]
-tock-registers = { version = "0.7.x", default-features = false } # Use it as interface-only library.
+tock-registers = { version = "0.7.x", default-features = false, optional = true } # Use it as interface-only library.
