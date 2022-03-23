@@ -71,6 +71,7 @@
 //!             + SPSR_EL2::F::Masked
 //!             + SPSR_EL2::M::EL1h,
 //!     );
+//! }
 //! ```
 //!
 //! ## Disclaimer

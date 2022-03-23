@@ -27,11 +27,11 @@ register_bitfields! {u64,
         /// Traps are reported using EC syndrome value 0x09. The Pointer Authentication instructions
         /// trapped are:
         ///
-        ///     AUTDA, AUTDB, AUTDZA, AUTDZB, AUTIA, AUTIA1716, AUTIASP, AUTIAZ, AUTIB, AUTIB1716,
-        ///     AUTIBSP, AUTIBZ, AUTIZA, AUTIZB, PACGA, PACDA, PACDB, PACDZA, PACDZB, PACIA,
-        ///     PACIA1716, PACIASP, PACIAZ, PACIB, PACIB1716, PACIBSP, PACIBZ, PACIZA, PACIZB.
-        ///     RETAA, RETAB, BRAA, BRAB, BLRAA, BLRAB, BRAAZ, BRABZ, BLRAAZ, BLRABZ.
-        ///     ERETAA, ERETAB, LDRAA, and LDRAB.
+        /// `AUTDA`, `AUTDB`, `AUTDZA`, `AUTDZB`, `AUTIA`, `AUTIA1716`, `AUTIASP`, `AUTIAZ`, `AUTIB`, `AUTIB1716`,
+        /// `AUTIBSP`, `AUTIBZ`, `AUTIZA`, `AUTIZB`, `PACGA`, `PACDA`, `PACDB`, `PACDZA`, `PACDZB`, `PACIA`,
+        /// `PACIA1716`, `PACIASP`, `PACIAZ`, `PACIB`, `PACIB1716`, `PACIBSP`, `PACIBZ`, `PACIZA`, `PACIZB`,
+        /// `RETAA`, `RETAB`, `BRAA`, `BRAB`, `BLRAA`, `BLRAB`, `BRAAZ`, `BRABZ`, `BLRAAZ`, `BLRABZ`,
+        /// `ERETAA`, `ERETAB`, `LDRAA`, and `LDRAB`.
         API   OFFSET(41) NUMBITS(1) [
             EnableTrapPointerAuthInstToEl2 = 0,
             DisableTrapPointerAuthInstToEl2 = 1
@@ -41,8 +41,8 @@ register_bitfields! {u64,
         /// following registers from EL1 to EL2, when EL2 is enabled in the current Security state,
         /// reported using EC syndrome value 0x18:
         ///
-        ///     APIAKeyLo_EL1, APIAKeyHi_EL1, APIBKeyLo_EL1, APIBKeyHi_EL1, APDAKeyLo_EL1,
-        ///     APDAKeyHi_EL1, APDBKeyLo_EL1, APDBKeyHi_EL1, APGAKeyLo_EL1, and APGAKeyHi_EL1.
+        /// `APIAKeyLo_EL1`, `APIAKeyHi_EL1`, `APIBKeyLo_EL1`, `APIBKeyHi_EL1`, `APDAKeyLo_EL1`,
+        /// `APDAKeyHi_EL1`, `APDBKeyLo_EL1`, `APDBKeyHi_EL1`, `APGAKeyLo_EL1`, and `APGAKeyHi_EL1`.
         APK   OFFSET(40) NUMBITS(1) [
             EnableTrapPointerAuthKeyRegsToEl2 = 0,
             DisableTrapPointerAuthKeyRegsToEl2 = 1,
