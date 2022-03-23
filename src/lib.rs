@@ -47,11 +47,14 @@
 //! code.
 //!
 //! ```rust
+//! # #[cfg(feature = "nightly")]
 //! use cortex_a::{asm, registers::*};
+//! # #[cfg(feature = "nightly")]
 //! use tock_registers::interfaces::Writeable; // <-- Trait needed to use `write()` and `set()`.
 //!
 //! // Some parts omitted for brevity.
 //!
+//! # #[cfg(feature = "nightly")]
 //! unsafe fn prepare_el2_to_el1_transition(
 //!     virt_boot_core_stack_end_exclusive_addr: u64,
 //!     virt_kernel_init_addr: u64,
@@ -82,9 +85,10 @@
 //! ARMv8, for ARMv8-A architecture
 //! profile](https://static.docs.arm.com/ddi0487/ca/DDI0487C_a_armv8_arm.pdf?_ga=2.266626254.1122218691.1534883460-1326731866.1530967873).
 
-#![feature(core_intrinsics)]
-#![feature(custom_inner_attributes)]
+#![cfg_attr(feature = "nightly", feature(core_intrinsics))]
+#![cfg_attr(feature = "nightly", feature(custom_inner_attributes))]
 #![no_std]
 
 pub mod asm;
+#[cfg(feature = "nightly")]
 pub mod registers;

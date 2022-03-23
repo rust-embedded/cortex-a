@@ -12,7 +12,8 @@ Low level access to Cortex-A processors.
 
 ## Minimum Supported Rust Version
 
-Requires a recent nightly of Rust.
+Requires a recent nightly of Rust if the (default) `nightly` feature is enabled. Without this the
+register access module is not available.
 
 ## Usage
 
