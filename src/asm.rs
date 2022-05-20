@@ -9,6 +9,8 @@
 //! Wrappers around ARMv8-A instructions.
 
 pub mod barrier;
+
+#[cfg(feature = "nightly")]
 pub mod random;
 
 /// The classic no-op
