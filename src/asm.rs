@@ -88,6 +88,7 @@ pub fn sev() {
 /// Exception return
 ///
 /// Will jump to wherever the corresponding link register points to, and therefore never return.
+#[cfg(feature = "nightly")]
 #[inline(always)]
 pub fn eret() -> ! {
     #[cfg(target_arch = "aarch64")]
@@ -103,6 +104,7 @@ pub fn eret() -> ! {
 /// Function return
 ///
 /// Will jump to wherever the corresponding link register points to, and therefore never return.
+#[cfg(feature = "nightly")]
 #[inline(always)]
 pub fn ret() -> ! {
     #[cfg(target_arch = "aarch64")]
