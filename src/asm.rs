@@ -88,13 +88,12 @@ pub fn sev() {
 /// Exception return
 ///
 /// Will jump to wherever the corresponding link register points to, and therefore never return.
-#[cfg(feature = "nightly")]
 #[inline(always)]
 pub fn eret() -> ! {
     #[cfg(target_arch = "aarch64")]
     unsafe {
         core::arch::asm!("eret", options(nomem, nostack));
-        core::intrinsics::unreachable()
+        core::hint::unreachable_unchecked()
     }
 
     #[cfg(not(target_arch = "aarch64"))]
@@ -104,13 +103,12 @@ pub fn eret() -> ! {
 /// Function return
 ///
 /// Will jump to wherever the corresponding link register points to, and therefore never return.
-#[cfg(feature = "nightly")]
 #[inline(always)]
 pub fn ret() -> ! {
     #[cfg(target_arch = "aarch64")]
     unsafe {
         core::arch::asm!("ret", options(nomem, nostack));
-        core::intrinsics::unreachable()
+        core::hint::unreachable_unchecked()
     }
 
     #[cfg(not(target_arch = "aarch64"))]
