@@ -5,9 +5,10 @@
 // Author(s):
 //   - Valentin B. <valentin.be@protonmail.com>
 
-//! Current Cache Size ID Register - EL1
+//! Cache Size Selection Register - EL1
 //!
-//! Provides information about the architecture of the currently selected cache.
+//! Selects the current Cache Size ID Register, CCSIDR_EL1, by specifying the
+//! required cache level and the cache type (either instruction or data cache).
 
 use tock_registers::{
     interfaces::{Readable, Writeable},
