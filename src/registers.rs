@@ -6,6 +6,7 @@
 #[macro_use]
 mod macros;
 
+mod ccsidr_el1;
 mod clidr_el1;
 mod cntfrq_el0;
 mod cnthctl_el2;
@@ -59,6 +60,7 @@ mod ttbr1_el1;
 mod vbar_el1;
 mod vbar_el2;
 
+pub use ccsidr_el1::{CCSIDR_EL1, CSSIDR_EL1_WITH_FEAT_CCIDX};
 pub use clidr_el1::CLIDR_EL1;
 pub use cntfrq_el0::CNTFRQ_EL0;
 pub use cnthctl_el2::CNTHCTL_EL2;
