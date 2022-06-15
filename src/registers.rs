@@ -6,6 +6,9 @@
 #[macro_use]
 mod macros;
 
+mod actlr_el1;
+mod actlr_el2;
+mod actlr_el3;
 mod ccsidr_el1;
 mod clidr_el1;
 mod cntfrq_el0;
@@ -61,6 +64,9 @@ mod ttbr1_el1;
 mod vbar_el1;
 mod vbar_el2;
 
+pub use actlr_el1::ACTLR_EL1;
+pub use actlr_el2::ACTLR_EL2;
+pub use actlr_el3::ACTLR_EL3;
 pub use ccsidr_el1::CCSIDR_EL1;
 pub use clidr_el1::CLIDR_EL1;
 pub use cntfrq_el0::CNTFRQ_EL0;
