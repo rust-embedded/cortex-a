@@ -31,7 +31,7 @@ register_bitfields! {u64,
         /// **Otherwise:**
         ///
         /// Reserved.
-        TnD  OFFSET(4) NUMBITS(1) [
+        TnD OFFSET(4) NUMBITS(1) [
             /// Data, Instruction or Unified cache.
             Data = 0b0,
             /// Separate Allocation Tag cache.
