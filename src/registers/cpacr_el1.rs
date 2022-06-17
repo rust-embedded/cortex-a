@@ -5,7 +5,7 @@
 // Author(s):
 //   - Valentin B. <valentin.be@protonmail.com>
 
-//! Architectural Feathre Access Control Register - EL1
+//! Architectural Feature Access Control Register - EL1
 //!
 //! Controls access to trace, SVE, and Advanced SIMD and floating-point functionality.
 
