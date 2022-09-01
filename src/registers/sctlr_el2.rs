@@ -27,6 +27,20 @@ register_bitfields! {u64,
             Big = 1
         ],
 
+        /// When FEAT_ExS is implemented control if taking an exception to EL2 is a context
+        /// synchonizing event
+        EIS OFFSET(22) NUMBITS(1) [
+            IsNotSynch = 0,
+            IsSynch = 1
+        ],
+
+        /// When FEAT_IESB is implemented control if an implict ESB is added at each exception
+        /// and before each ERET to/from EL2
+        IESB OFFSET(21) NUMBITS(1) [
+            Disable = 0,
+            Enable = 1
+        ],
+
         /// Force treatment of all memory regions with write permissions as XN.
         /// The possible values are:
         ///
