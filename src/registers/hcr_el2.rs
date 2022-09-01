@@ -19,6 +19,15 @@ use tock_registers::{
 
 register_bitfields! {u64,
     pub HCR_EL2 [
+        /// When FEAT_S2FWB is implemented Forced Write-back changes the combined cachability of stage1
+        /// and stage2 attributes
+        FWB OFFSET(46) NUMBITS(1) [
+           /// Stage2 memory type and cacheability attributes are in bits[5:2] of the stage2 PTE
+           Disabled = 0,
+           /// Stage1 memory type can be overridden by Stage2 descriptor
+           Enabled = 1,
+        ],
+
         /// Controls the use of instructions related to Pointer Authentication:
         ///
         ///   - In EL0, when HCR_EL2.TGE==0 or HCR_EL2.E2H==0, and the associated SCTLR_EL1.En<N><M>==1.
