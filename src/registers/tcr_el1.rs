@@ -36,6 +36,20 @@ register_bitfields! {u64,
         ///     Reserved, RES0.
         TBID0  OFFSET(51) NUMBITS(1) [],
 
+        /// When FEAT_HAFDBS is implemented hardware can update the dirty flags in the stage1
+        /// descriptors
+        HD OFFSET(40) NUMBITS(1) [
+            Disable = 0,
+            Enable = 1,
+        ],
+
+        /// When FEAT_HAFDBS is implemented hardware can update the access flags in the stage1
+        /// descriptors
+        HA OFFSET(39) NUMBITS(1) [
+            Disable = 0,
+            Enable = 1,
+        ],
+
         /// Top Byte ignored - indicates whether the top byte of an address is used for address
         /// match for the TTBR1_EL1 region, or ignored and used for tagged addresses. Defined values
         /// are:
