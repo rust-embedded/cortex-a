@@ -18,6 +18,20 @@ use tock_registers::{
 register_bitfields! {u64,
     pub TCR_EL2 [
 
+        /// When FEAT_HAFDBS is implemented hardware can update the dirty flags in the stage1
+        /// descriptors
+        HD OFFSET(22) NUMBITS(1) [
+            Disable = 0,
+            Enable = 1,
+        ],
+
+        /// When FEAT_HAFDBS is implemented hardware can update the access flags in the stage1
+        /// descriptors
+        HA OFFSET(21) NUMBITS(1) [
+            Disable = 0,
+            Enable = 1,
+        ],
+
         /// Top Byte ignored - indicates whether the top byte of an address is used for address
         /// match for the TTBR0_EL2 region, or ignored and used for tagged addresses. Defined values
         /// are:
