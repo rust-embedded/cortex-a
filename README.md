@@ -25,7 +25,7 @@ the same version of `tock-registers` as is being used by this crate to ensure sa
 interoperatbility.
 
 For example, in the following snippet, `X.Y.Z` should be the same version of `tock-registers` that
-is mentioned in `cortex-a`'s [`Cargo.toml`](Cargo.toml).
+is mentioned in `cortex-a`'s [`Cargo.toml`](Cargo.toml#L27).
 
 ```toml
 [package]

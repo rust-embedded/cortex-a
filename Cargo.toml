@@ -1,6 +1,6 @@
 [package]
 name = "cortex-a"
-version = "7.5.0"
+version = "8.0.0"
 authors = ["Andre Richter <andre.o.richter@gmail.com>"]
 description = "Low level access to Cortex-A processors"
 homepage = "https://github.com/rust-embedded/cortex-a"
@@ -24,4 +24,4 @@ default = ["nightly"]
 nightly = ["tock-registers"]
 
 [dependencies]
-tock-registers = { version = "0.8", default-features = false, optional = true } # Use it as interface-only library.
+tock-registers = { version = "0.8.x", default-features = false, optional = true } # Use it as interface-only library.
