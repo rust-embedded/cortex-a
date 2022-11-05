@@ -55,12 +55,30 @@ macro_rules! dmb_dsb {
 }
 
 pub struct SY;
+pub struct ST;
+pub struct LD;
 pub struct ISH;
 pub struct ISHST;
+pub struct ISHLD;
+pub struct NSH;
+pub struct NSHST;
+pub struct NSHLD;
+pub struct OSH;
+pub struct OSHST;
+pub struct OSHLD;
 
+dmb_dsb!(SY);
+dmb_dsb!(ST);
+dmb_dsb!(LD);
 dmb_dsb!(ISH);
 dmb_dsb!(ISHST);
-dmb_dsb!(SY);
+dmb_dsb!(ISHLD);
+dmb_dsb!(NSH);
+dmb_dsb!(NSHST);
+dmb_dsb!(NSHLD);
+dmb_dsb!(OSH);
+dmb_dsb!(OSHST);
+dmb_dsb!(OSHLD);
 
 impl sealed::Isb for SY {
     #[inline(always)]
